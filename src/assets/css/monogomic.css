@@ -1,0 +1,26 @@
+.left-menu-button:hover{
+    background-color: var(--olympus-primary-color) !important;
+    color: var(--olympus-white-color) !important;
+}
+.left-menu-button:hover a{
+    color: var(--olympus-white-color) !important;
+}
+.chat_message_me{
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: right;
+
+}
+.chat_message_other{
+    background-color: #2f6f9f;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+.chat_container{
+    height: 450px;
+    border: 1px solid gray;
+    padding: 5px;
+    overflow-y: scroll;
+}
