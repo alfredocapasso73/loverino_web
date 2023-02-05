@@ -19,6 +19,7 @@ const CommonMyPictures = (props) => {
     const [showingImagePopup, setShowingImagePopup] = useState(false);
     const [clickedUser, setClickedUser] = useState();
     const [currentImgUrl, setCurrentImgUrl] = useState('');
+    const [currentPictureToRemove, setCurrentPictureToRemove] = useState('');
 
     const imageClose = () => {
         setShowingImagePopup(false);
@@ -39,19 +40,7 @@ const CommonMyPictures = (props) => {
         const imgs = images;
         imgs.find(el => el.id === id).confirm_delete = 'y';
         setImages([...imgs]);
-        /*try{
-            const response = await api_delete_image(id);
-            await getImages();
-            if(response.status === 200){
-                setImageDeletedSuccess(true);
-            }
-            else{
-                setImageDeletedFailure(true);
-            }
-        }
-        catch(exception){
-            console.log("exception",exception);
-        }*/
+        setCurrentPictureToRemove(id);
     }
 
     const getImages = async () => {
@@ -106,6 +95,30 @@ const CommonMyPictures = (props) => {
         }
     }
 
+    const confirmRemovePicture = async () => {
+        console.log('confirmRemovePicture');
+        try{
+            const response = await api_delete_image(currentPictureToRemove);
+            if(response.status === 200){
+                setImageDeletedSuccess(true);
+            }
+            else{
+                setImageDeletedFailure(true);
+            }
+            await getImages();
+        }
+        catch(exception){
+            console.log("exception",exception);
+        }
+    }
+
+    const cancelRemovePicture = () => {
+        const pics = images;
+        pics.find(el => el.id === currentPictureToRemove).confirm_delete = 'n';
+        setImages([...pics]);
+        setCurrentPictureToRemove('');
+    }
+
     const uploadFile = (e) => {
         e.stopPropagation();
         uploadRef.current.click();
@@ -127,21 +140,24 @@ const CommonMyPictures = (props) => {
                             {
                                 images && images.map((img, index) =>
                                     <div key={index} className="col col-xl-3 col-lg-3  col-md-6  col-sm-6" style={{padding: '5px'}}>
-                                        <div style={{width: '100%', position: 'relative'}} className="text-center" onClick={e => onImageClick(img.url)}>
+                                        <div style={{width: '100%', position: 'relative'}} className="text-center">
                                             <div className="img_with_trash">
                                                 <img src={img.url} alt="" className="user_profile_image" />
                                                 {
                                                     img.confirm_delete === 'y' &&
                                                     <div className="container_confirm_remove_picture">
                                                         <div style={{paddingTop: '30%'}}>
-                                                            <div className="a_div" style={{fontWeight: 'bolder'}}>{t('CONFIRM_REMOVE')}</div>
+                                                            <div onClick={confirmRemovePicture} className="a_div pointer" style={{fontWeight: 'bolder'}}>{t('CONFIRM_REMOVE')}</div>
                                                             <div className="a_div" style={{fontWeight: 'bolder'}}>{t('OR')}</div>
-                                                            <div className="a_div" style={{fontWeight: 'bolder'}}>{t('CANCEL')}</div>
+                                                            <div onClick={cancelRemovePicture} className="a_div pointer" style={{fontWeight: 'bolder'}}>{t('CANCEL')}</div>
                                                         </div>
                                                     </div>
                                                 }
-                                                <div className="trash_can_picture"  onClick={e => removePicture(img.id)}>
+                                                <div className="pointer trash_can_picture"  onClick={e => removePicture(img.id)}>
                                                     <img src="/img/svg/icons8-delete-trash-15.png" />
+                                                </div>
+                                                <div className="pointer zooom_picture" onClick={e => onImageClick(img.url)}>
+                                                    <img src="/img/svg/icons8-zoom-in-15.png" />
                                                 </div>
                                             </div>
                                         </div>
