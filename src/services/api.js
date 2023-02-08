@@ -28,6 +28,7 @@ export const API_URLS =
         ,USER_UPLOAD_PICTURE: {url: `${USER_PREFIX}/uploadPicture`, method: 'POST', auth: true}
         ,USER_GET_USER: {url: `${USER_PREFIX}/getUser`, method: 'GET', auth: true}
         ,USER_GET_MESSAGES: {url: `${USER_PREFIX}/getMessages`, method: 'POST', auth: true}
+        ,USER_GET_MESSAGE_HISTORY: {url: `${USER_PREFIX}/getMessageHistory`, method: 'POST', auth: true}
         ,USER_CANCEL_CURRENT_MATCH: {url: `${USER_PREFIX}/cancelCurrentMatch`, method: 'PUT', auth: true}
         ,USER_REFRESH_TOKEN: {url: `${USER_PREFIX}/refreshToken`, method: 'POST', auth: false}
         ,GEO_GET_REGIONS: {url: `${GEO_PREFIX}/region`, method: 'GET', auth: false}

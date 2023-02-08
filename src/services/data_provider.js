@@ -138,6 +138,18 @@ export async function api_signup(body){
     }
 }
 
+export async function api_get_message_history(last_created_at){
+    try{
+        const body = {last_created_at: last_created_at};
+        const request = await make_request(API_URLS.USER_GET_MESSAGE_HISTORY, body);
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_get_messages(){
     try{
         const body = {};

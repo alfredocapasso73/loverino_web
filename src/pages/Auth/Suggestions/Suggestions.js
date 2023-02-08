@@ -89,7 +89,7 @@ const Suggestions = () => {
                 const minutes = response?.data?.next_suggestion_possible_within_minutes || 0;
                 setNextSuggestionsAvailableWithinMinutes(minutes);
                 setNoSuggestionsFound(true);
-                console.log('no suggestions at the moment');
+                console.log('no suggestions at the moment:',minutes);
                 return;
             }
             if(response?.data?.error === 'currently_in_a_match'){

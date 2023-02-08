@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
-import {api_get_me, api_get_user, api_get_messages, api_cancel_match} from "../../../services/data_provider";
+import {api_get_me, api_get_user, api_get_messages, api_cancel_match, api_get_message_history} from "../../../services/data_provider";
 import MatchError from "./MatchError";
 import NoCurrentMatch from "./NoCurrentMatch";
 import {API_URLS} from "../../../services/api";
 import {get_more_svg_icon} from '../../../assets/Svg/Svg';
 import {io} from "socket.io-client";
+
 
 const Match = () => {
     const { t } = useTranslation();
@@ -21,8 +22,37 @@ const Match = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const messageRef = useRef('');
     const messagesEndRef = useRef(null);
+    const messagesTopRef = useRef(null);
+
     const [showModal, setShowModal] = useState(false);
     const [noCurrentMatches, setNoCurrentMatches] = useState(false);
+    const [currentOldestMessageDate, setCurrentOldestMessageDate] = useState('');
+
+    const [thereAreMoreMessages, setThereAreMoreMessages] = useState(false);
+
+    const getMessageHistory = async () => {
+        try{
+            const result = await api_get_message_history(currentOldestMessageDate);
+            if(result?.status === 200 && result?.data?.messages){
+                if(result?.data?.messages?.length === 0 || result?.data?.messages?.more_messages === 0){
+                    setThereAreMoreMessages(false);
+                }
+                else{
+                    const all = chatMessages;
+                    const oldest_message = result.data.messages[result.data.messages.length-1];
+                    setCurrentOldestMessageDate(oldest_message.createdAt);
+                    result.data.messages.forEach(el => {
+                        const message_object = {from: el.from, data: el.message};
+                        all.unshift(message_object);
+                    });
+                    setChatMessages(all);
+                }
+            }
+        }
+        catch(exception){
+            console.log("exception:", exception);
+        }
+    }
 
     const confirmUnmatch = async () => {
         try{
@@ -52,6 +82,14 @@ const Match = () => {
         setTimeout(function(){
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
         }, 100);
+
+    };
+
+    const scrollToTop = () => {
+        setTimeout(function(){
+            messagesTopRef.current?.scrollIntoView({ behavior: "smooth" });
+            console.log("wtf");
+        }, 500);
 
     };
 
@@ -94,12 +132,18 @@ const Match = () => {
             console.log('all_messages:',all_messages);
             if(all_messages?.data?.messages?.length){
                 const all = [];
+                const oldest_message = all_messages.data.messages[0];
+                console.log('oldest_message:',oldest_message);
+                setCurrentOldestMessageDate(oldest_message.createdAt);
                 all_messages.data.messages.forEach(el => {
                     const message_object = {from: el.from, data: el.message};
                     all.push(message_object);
                 });
                 setChatMessages(all);
                 scrollToBottom();
+                if(all_messages?.data?.more_messages){
+                    setThereAreMoreMessages(true);
+                }
             }
 
             const access_token = localStorage.getItem("token");
@@ -180,6 +224,13 @@ const Match = () => {
                                 <input onKeyPress={e => sendMessage(e)} type="text" ref={messageRef} style={{border: '1px solid gray', width: '100%'}} placeholder="Enter message"/>
                             </div>
                             <div style={{height: '85%', border: '1px solid gray', padding: '5px', overflowY: 'scroll', borderRadius: '5px'}}>
+                                {
+                                    thereAreMoreMessages &&
+                                    <div className="a_div text-center pointer" style={{paddingBottom: '15px'}} onClick={getMessageHistory}>
+                                        Get more messages
+                                    </div>
+                                }
+
                                 {
                                     chatMessages.length > 0 && chatMessages.map((ob, index) =>
                                         <div key={index} style={{padding: '5px'}} className="row">
