@@ -18,7 +18,6 @@ import {
 import {api_login, api_resend_activation_link} from "../../../services/data_provider";
 import AppContext from "../../../components/AppContext";
 
-
 const Login = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -66,6 +65,8 @@ const Login = () => {
                 console.log("result",result);
                 hide_error_and_disable_button(setLoginError, setLoginButtonLoading);
                 localStorage.setItem("token", result.data.accessToken);
+                localStorage.setItem("refresh_token", result.data.refreshToken);
+                localStorage.setItem("user", result.data.user._id);
                 globalContext.loggedInUserDetails = result.data.user;
                 globalContext.authToken = result.data.accessToken;
                 return navigate(t('URL_AUTH_START_PAGE'));

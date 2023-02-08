@@ -10,6 +10,7 @@ import UserProfile from "./UserProfile";
 import TestUserProfile from "./TestUserProfile";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import {API_URLS} from "../../../services/api";
+import {global_error_handler} from "../../../helpers/GlobalError";
 
 const Competition = () => {
     const { t } = useTranslation();
@@ -121,7 +122,7 @@ const Competition = () => {
             setCompetitionUsers(arr);
         }
         catch(exception){
-            console.log('exception:',exception);
+            console.log("exception",exception);
         }
     }
 

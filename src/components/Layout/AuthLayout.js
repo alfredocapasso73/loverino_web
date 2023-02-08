@@ -6,7 +6,7 @@ import '../../assets/css/theme-font.min.css';
 import '../../assets/css/main.css';
 import '../../assets/Bootstrap/dist/css/bootstrap.css';
 import PagePreloader from "./PagePreloader";
-import {api_get_me} from "../../services/data_provider";
+import {api_get_me, api_refresh_token} from "../../services/data_provider";
 import {
     get_your_profile_svg_icon,
     get_logout_svg_icon,
@@ -15,6 +15,7 @@ import {
 } from "../../assets/Svg/Svg";
 import {API_URLS} from "../../services/api";
 import AppContext from "../AppContext";
+import {global_error_handler} from "../../helpers/GlobalError";
 
 const AuthLayout = () => {
     const navigate = useNavigate();
@@ -50,12 +51,12 @@ const AuthLayout = () => {
     }
 
     const setAvatarData = (user) => {
-        if(user.pictures.length){
+        if(user?.pictures?.length){
             const avatar_image = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${user.pictures[0]}`;
             globalContext.loggedInUserDetails.avatar = avatar_image;
             setAvatar(avatar_image);
         }
-        if(user.name){
+        if(user?.name){
             setMyName(user.name);
         }
     }
@@ -63,16 +64,27 @@ const AuthLayout = () => {
     const getUserDetails = async () => {
         try{
             const response = await api_get_me();
-            if(response.status !== 200){
-                navigate('/');
+            if(response?.status === 500 && response?.data?.message === "jwt_expired"){
+                const body = {user: window.localStorage.getItem('user'),refresh_token: window.localStorage.getItem('refresh_token')};
+                const refresh_response = await api_refresh_token(body);
+                if(refresh_response?.status === 200 && refresh_response?.data?.accessToken && refresh_response?.data?.refreshToken){
+                    console.log("refresh_response",refresh_response);
+                    localStorage.setItem("token", refresh_response.data.accessToken);
+                    return navigate('/');
+                }
+                window.localStorage.removeItem('token');
+                return navigate('/');
             }
-            globalContext.authToken = window.localStorage.getItem('token');
-            globalContext.loggedInUserDetails = response.data.user;
-            setAvatarData(response.data.user);
-            setShowOutlet(true);
+            if(response.status === 200){
+                console.log("response",response);
+                globalContext.authToken = window.localStorage.getItem('token');
+                globalContext.loggedInUserDetails = response.data.user;
+                setAvatarData(response.data.user);
+                setShowOutlet(true);
+            }
         }
         catch(exception){
-            console.log('exception:',exception);
+            console.log("exception",exception);
         }
     };
 
@@ -86,6 +98,8 @@ const AuthLayout = () => {
 
     const logout = () => {
         window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
+        window.localStorage.removeItem('refresh_token');
         navigate('/');
     }
 

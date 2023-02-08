@@ -28,6 +28,7 @@ const ChangeEmail = () => {
                 setApiErrorText(error);
                 return;
             }
+            localStorage.setItem("user_email", emailRef.current.value);
             setEmailChanged(true);
         }
         catch(exception){

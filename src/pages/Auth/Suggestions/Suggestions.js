@@ -8,7 +8,6 @@ import UserProfile from "./UserProfile";
 import SuggestionError from "./SuggestionError";
 import CurrentlyMatched from "./CurrentlyMatched";
 import {useNavigate} from "react-router-dom";
-import currentlyMatched from "./CurrentlyMatched";
 
 const Suggestions = () => {
     const { t } = useTranslation();
@@ -17,6 +16,7 @@ const Suggestions = () => {
     const [didNotLikeAnybody, setDidNotLikeAnybody] = useState(false);
     const [nextSuggestionsAvailableWithinMinutes, setNextSuggestionsAvailableWithinMinutes] = useState(0);
     const [noSuggestionsFound, setNoSuggestionsFound] = useState(false);
+    const [noSuggestionsFoundAtAll, setNoSuggestionsFoundAtAll] = useState(false);
     const [suggestionError, setSuggestionError] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [winner, setWinner] = useState(undefined);
@@ -25,8 +25,6 @@ const Suggestions = () => {
     const [currentViewedSuggestion, setCurrentViewedSuggestion] = useState(0);
     const [currentSuggestionNumberTitle, setCurrentSuggestionNumberTitle] = useState('');
     const [matched, setMatched] = useState(false);
-
-
 
     const voteUser = async (vote) => {
         try{
@@ -71,7 +69,7 @@ const Suggestions = () => {
             }
         }
         catch(exception){
-            console.log('exception:',exception);
+            console.log("exception",exception);
         }
     }
 
@@ -103,6 +101,7 @@ const Suggestions = () => {
             const suggestions_users = response?.data?.suggestions?.users || [];
             if(!suggestions_users.length){
                 console.log('no users, need to tell the user time left to next suggestions');
+                setNoSuggestionsFoundAtAll(true);
                 return;
             }
             const unread_suggestions = suggestions_users.filter(el => el.status === 'unread');
@@ -121,7 +120,7 @@ const Suggestions = () => {
             setNoSuggestionsFound(false);
         }
         catch(exception){
-            console.log('exception:',exception);
+            console.log("exception",exception);
             setSuggestionError(true);
         }
     }
@@ -129,13 +128,14 @@ const Suggestions = () => {
     const ensureNoOngoingCompetition = async () => {
         try{
             const competition = await api_get_competition();
-            if(competition.status === 200 && competition?.data?.competition_id){
+            console.log("competition",competition);
+            if(competition.status === 200 && competition?.data?.competition_id  && competition?.data?.competition_status === 'in_progress'){
                 return true;
             }
             return false;
         }
         catch(exception){
-            console.log('exception:',exception);
+            console.log("exception",exception);
         }
     }
 
@@ -150,6 +150,7 @@ const Suggestions = () => {
                 {isCurrentlyMatched && <CurrentlyMatched />}
                 {suggestionError && <SuggestionError />}
                 {noSuggestionsFound && <NoSuggestionLiked minutes_left={nextSuggestionsAvailableWithinMinutes} main_title={t('NO_SUGGESTIONS_FOR_YOU_AT_THE_MOMENT')}/>}
+                {noSuggestionsFoundAtAll && <NoSuggestionLiked minutes_left={0} none_at_all={true} main_title={t('NO_SUGGESTIONS_FOR_YOU_AT_ALL')}/>}
                 {didNotLikeAnybody && <NoSuggestionLiked minutes_left={nextSuggestionsAvailableWithinMinutes} main_title={t('NO_SUGGESTION_LIKED')}/>}
                 {!didNotLikeAnybody && suggestions.length > 0 && <UserProfile main_title={currentSuggestionNumberTitle} user={suggestions[currentViewedSuggestion].data} vote_user={true} user_func={voteUser} />}
                 {winner && <UserProfile it_is_a_match={matched} main_title={t('HERE_IS_THE_WINNER')} sub_title={t('IF_FAVORITE_LIKES_YOU_WILL_BE_MATCH')} user={winner} vote_user={false} />}

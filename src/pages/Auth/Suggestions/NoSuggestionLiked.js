@@ -35,8 +35,10 @@ const NoSuggestionLiked = (props) => {
     }
 
     useEffect(() => {
-        updateCount()
-        return () => clearInterval(timer)
+        if(!props.none_at_all){
+            updateCount();
+            return () => clearInterval(timer);
+        }
     }, [count])
 
 
@@ -48,20 +50,36 @@ const NoSuggestionLiked = (props) => {
                     {props.main_title}
                 </h6>
             </div>
-            <div className="ui-block-content">
-                <h4 className="title text-center">
-                    {t('NEW_SUGGESTION_WITHIN')}
-                </h4>
-            </div>
-            <div className="text-center">
-                <div style={{fontSize: '1.5rem'}}>
-                    {hoursLeft < 9 && <span>0{hoursLeft}</span>}:
-                    {minutesLeft <= 9 && <span>0{minutesLeft}:</span>}
-                    {minutesLeft > 9 && <span>{minutesLeft}:</span>}
-                    {secondsLeft <= 9 && <span>0{secondsLeft}</span>}
-                    {secondsLeft > 9 && <span>{secondsLeft}</span>}
+            {
+                !props.none_at_all &&
+                <div className="ui-block-content">
+                    <h4 className="title text-center">
+                        {t('NEW_SUGGESTION_WITHIN')}
+                    </h4>
                 </div>
-            </div>
+            }
+            {
+                props.none_at_all &&
+                <div className="ui-block-content">
+                    <h4 className="title text-center">
+                        {t('DONT_GIVE_UP_COME_BACK_LATER')}
+                    </h4>
+                </div>
+            }
+
+            {
+                !props.none_at_all &&
+                <div className="text-center">
+                    <div style={{fontSize: '1.5rem'}}>
+                        {hoursLeft < 9 && <span>0{hoursLeft}</span>}:
+                        {minutesLeft <= 9 && <span>0{minutesLeft}:</span>}
+                        {minutesLeft > 9 && <span>{minutesLeft}:</span>}
+                        {secondsLeft <= 9 && <span>0{secondsLeft}</span>}
+                        {secondsLeft > 9 && <span>{secondsLeft}</span>}
+                    </div>
+                </div>
+            }
+
         </div>
     );
 }

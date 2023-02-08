@@ -105,6 +105,17 @@ export async function api_resend_activation_link(body){
     }
 }
 
+export async function api_refresh_token(body){
+    try{
+        const request = await make_request(API_URLS.USER_REFRESH_TOKEN, body);
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_login(body){
     try{
         const request = await make_request(API_URLS.USER_SIGNIN, body);
