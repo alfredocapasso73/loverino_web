@@ -1,9 +1,7 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import {hide_success} from "../../helpers/UICommon";
 
 const AlertSuccess = (props) => {
-    const { t } = useTranslation();
 
     return(
         <div className="alert alert-success alert-dismissible fade show">

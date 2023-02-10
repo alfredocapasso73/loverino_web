@@ -35,7 +35,7 @@ const CompetitionUserProfile = (props) => {
                             </svg>
                         </div>
                         <div className="only_mobile competition_heart_mobile"  onClick={e => props.user_func(props.user._id)}>
-                            <img src="/img/svg/icons8-green-heart-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
+                            <img alt="" src="/img/svg/icons8-green-heart-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
                         </div>
                     </div>
 

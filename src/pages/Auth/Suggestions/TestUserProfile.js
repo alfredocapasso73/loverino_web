@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
-import {API_URLS} from "../../../services/api";
+
 
 const TestUserProfile = (props) => {
     const { t } = useTranslation();

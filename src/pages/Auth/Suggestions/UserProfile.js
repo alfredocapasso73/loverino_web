@@ -5,7 +5,6 @@ import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import {API_URLS} from "../../../services/api";
 import Confetti from 'react-confetti';
 import {Link} from "react-router-dom";
-import FullImage from "../Common/FullImage";
 
 const UserProfile = (props) => {
     const { t } = useTranslation();
@@ -115,13 +114,13 @@ const UserProfile = (props) => {
                                             <div className="user_voting_container_mobile">
                                                 <div className="row">
                                                     <div className="col col-4 text-center" onClick={e => props.user_func('n')}>
-                                                        <img src="/img/svg/icons8-close-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
+                                                        <img alt="" src="/img/svg/icons8-close-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
                                                     </div>
                                                     <div className="col col-4 text-center" onClick={e => props.user_func('m')}>
-                                                        <img src="/img/svg/question.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
+                                                        <img alt="" src="/img/svg/question.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
                                                     </div>
                                                     <div className="col col-4 text-center" onClick={e => props.user_func('y')}>
-                                                        <img src="/img/svg/icons8-green-heart-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
+                                                        <img alt="" src="/img/svg/icons8-green-heart-25.png" style={{width: '30px', height: '30px'}} className="svg_voting_symbol"/>
                                                     </div>
                                                 </div>
                                             </div>

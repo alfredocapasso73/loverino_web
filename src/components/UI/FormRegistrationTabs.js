@@ -9,7 +9,7 @@ const FormRegistrationTabs = (props) => {
         if(
             (element === 'signup' && props.caller === 'signup')
             ||
-            element === 'login' && props.caller === 'login'
+            (element === 'login' && props.caller === 'login')
         ){
             props.formButtonClicked();
         }
@@ -29,32 +29,33 @@ const FormRegistrationTabs = (props) => {
                 setLoginIconDataSvg(get_login_svg_icon_data(false));
                 setSignupIconDataSvg(get_signup_svg_icon_data(false));
                 break;
+            default: console.log("");
         }
 
-    }, []);
+    }, [props.caller]);
 
     return(
         <div>
             <ul className="nav nav-tabs" id="registration-form-tabs" role="tablist">
                 <li className="nav-item" role="presentation">
-                    <a className={`nav-link active`} id="login-tab" data-bs-toggle="tab" onClick={e => manageClick('login')}
+                    <div className={`nav-link active`} id="login-tab" data-bs-toggle="tab" onClick={e => manageClick('login')}
                        role="tab" aria-controls="login" aria-selected="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox={loginIconDataSvg.viewBox}>
                             <g fill={loginIconDataSvg.fill}>
                                 <path d={loginIconDataSvg.path}/>
                             </g>
                         </svg>
-                    </a>
+                    </div>
                 </li>
                 <li className="nav-item" role="presentation">
-                    <a className={`nav-link`} id="profile-tab" data-bs-toggle="tab" onClick={e => manageClick('signup')}
+                    <div className={`nav-link`} id="profile-tab" data-bs-toggle="tab" onClick={e => manageClick('signup')}
                        role="tab" aria-controls="profile" aria-selected="false">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox={signupIconDataSvg.viewBox}>
                             <g fill={signupIconDataSvg.fill}>
                                 <path d={signupIconDataSvg.path}/>
                             </g>
                         </svg>
-                    </a>
+                    </div>
                 </li>
             </ul>
         </div>

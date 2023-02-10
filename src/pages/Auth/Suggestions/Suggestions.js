@@ -21,7 +21,6 @@ const Suggestions = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [winner, setWinner] = useState(undefined);
     const [suggestionId, setSuggestionId] = useState('');
-    const [numberOfSuggestions, setNumberOfSuggestions] = useState(0);
     const [currentViewedSuggestion, setCurrentViewedSuggestion] = useState(0);
     const [currentSuggestionNumberTitle, setCurrentSuggestionNumberTitle] = useState('');
     const [matched, setMatched] = useState(false);
@@ -73,58 +72,6 @@ const Suggestions = () => {
         }
     }
 
-    const initSuggestions = async () => {
-        try{
-            const current_competition = await ensureNoOngoingCompetition();
-            if(current_competition){
-                return navigate(t('URL_COMPETITION'));
-            }
-            const response = await api_get_suggestions();
-            if(response.status !== 200){
-                setSuggestionError(true);
-                console.log('something went wrong when fetching suggestions:',response);
-                return;
-            }
-            if(response?.data?.error === 'wait_until_next_suggestion'){
-                const minutes = response?.data?.next_suggestion_possible_within_minutes || 0;
-                setNextSuggestionsAvailableWithinMinutes(minutes);
-                setNoSuggestionsFound(true);
-                console.log('no suggestions at the moment:',minutes);
-                return;
-            }
-            if(response?.data?.error === 'currently_in_a_match'){
-                console.log('currently_in_a_match ok?');
-                setIsCurrentlyMatched(true);
-                return;
-            }
-
-            const suggestions_users = response?.data?.suggestions?.users || [];
-            if(!suggestions_users.length){
-                console.log('no users, need to tell the user time left to next suggestions');
-                setNoSuggestionsFoundAtAll(true);
-                return;
-            }
-            const unread_suggestions = suggestions_users.filter(el => el.status === 'unread');
-            if(!unread_suggestions.length){
-                console.log('no unread suggestions, uhmmmmm');
-                return;
-            }
-            setSuggestionId(response.data.suggestions._id);
-            console.log('response',response);
-            console.log('unread_suggestions',unread_suggestions);
-            console.log('unread_suggestions.length',unread_suggestions.length);
-            setSuggestions(unread_suggestions);
-            setNumberOfSuggestions(unread_suggestions.length);
-            const string = `${t('SUGGESTIONS_FOR_YOU')} - 1 ${t('OF')} ${unread_suggestions.length}`;
-            setCurrentSuggestionNumberTitle(string);
-            setNoSuggestionsFound(false);
-        }
-        catch(exception){
-            console.log("exception",exception);
-            setSuggestionError(true);
-        }
-    }
-
     const ensureNoOngoingCompetition = async () => {
         try{
             const competition = await api_get_competition();
@@ -140,8 +87,58 @@ const Suggestions = () => {
     }
 
     useEffect(() => {
+        const initSuggestions = async () => {
+            try{
+                const current_competition = await ensureNoOngoingCompetition();
+                if(current_competition){
+                    return navigate(t('URL_COMPETITION'));
+                }
+                const response = await api_get_suggestions();
+                if(response.status !== 200){
+                    setSuggestionError(true);
+                    console.log('something went wrong when fetching suggestions:',response);
+                    return;
+                }
+                if(response?.data?.error === 'wait_until_next_suggestion'){
+                    const minutes = response?.data?.next_suggestion_possible_within_minutes || 0;
+                    setNextSuggestionsAvailableWithinMinutes(minutes);
+                    setNoSuggestionsFound(true);
+                    console.log('no suggestions at the moment:',minutes);
+                    return;
+                }
+                if(response?.data?.error === 'currently_in_a_match'){
+                    console.log('currently_in_a_match ok?');
+                    setIsCurrentlyMatched(true);
+                    return;
+                }
+
+                const suggestions_users = response?.data?.suggestions?.users || [];
+                if(!suggestions_users.length){
+                    console.log('no users, need to tell the user time left to next suggestions');
+                    setNoSuggestionsFoundAtAll(true);
+                    return;
+                }
+                const unread_suggestions = suggestions_users.filter(el => el.status === 'unread');
+                if(!unread_suggestions.length){
+                    console.log('no unread suggestions, uhmmmmm');
+                    return;
+                }
+                setSuggestionId(response.data.suggestions._id);
+                console.log('response',response);
+                console.log('unread_suggestions',unread_suggestions);
+                console.log('unread_suggestions.length',unread_suggestions.length);
+                setSuggestions(unread_suggestions);
+                const string = `${t('SUGGESTIONS_FOR_YOU')} - 1 ${t('OF')} ${unread_suggestions.length}`;
+                setCurrentSuggestionNumberTitle(string);
+                setNoSuggestionsFound(false);
+            }
+            catch(exception){
+                console.log("exception",exception);
+                setSuggestionError(true);
+            }
+        }
         initSuggestions().catch(console.error);
-    }, []);
+    }, [navigate, t]);
 
     return(
         <div className="row">

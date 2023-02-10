@@ -4,7 +4,6 @@ import '../../../assets/css/monogomic.css'
 import {api_delete_image, api_get_me, api_upload_picture} from "../../../services/data_provider";
 import {API_URLS} from "../../../services/api";
 import {useNavigate} from "react-router-dom";
-import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import FullImage from "../Common/FullImage";
 
 const CommonMyPictures = (props) => {
@@ -17,7 +16,6 @@ const CommonMyPictures = (props) => {
     const [imageDeletedSuccess, setImageDeletedSuccess] = useState(false);
     const [imageDeletedFailure, setImageDeletedFailure] = useState(false);
     const [showingImagePopup, setShowingImagePopup] = useState(false);
-    const [clickedUser, setClickedUser] = useState();
     const [currentImgUrl, setCurrentImgUrl] = useState('');
     const [currentPictureToRemove, setCurrentPictureToRemove] = useState('');
 
@@ -47,7 +45,6 @@ const CommonMyPictures = (props) => {
         try{
             const response = await api_get_me();
             const pictures = response?.data?.user?.pictures;
-            const id = response?.data?.user?._id;
             const base_path_image = `${API_URLS.USER_GET_IMAGE.url}/small-picture-`;
             if(pictures && pictures.length){
                 const all_images = [];
@@ -154,10 +151,10 @@ const CommonMyPictures = (props) => {
                                                     </div>
                                                 }
                                                 <div className="pointer trash_can_picture"  onClick={e => removePicture(img.id)}>
-                                                    <img src="/img/svg/icons8-delete-trash-15.png" />
+                                                    <img alt="" src="/img/svg/icons8-delete-trash-15.png" />
                                                 </div>
                                                 <div className="pointer zooom_picture" onClick={e => onImageClick(img.url)}>
-                                                    <img src="/img/svg/icons8-zoom-in-15.png" />
+                                                    <img alt="" src="/img/svg/icons8-zoom-in-15.png" />
                                                 </div>
                                             </div>
                                         </div>

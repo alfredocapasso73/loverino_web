@@ -22,7 +22,6 @@ const Match = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const messageRef = useRef('');
     const messagesEndRef = useRef(null);
-    const messagesTopRef = useRef(null);
 
     const [showModal, setShowModal] = useState(false);
     const [noCurrentMatches, setNoCurrentMatches] = useState(false);
@@ -85,14 +84,6 @@ const Match = () => {
 
     };
 
-    const scrollToTop = () => {
-        setTimeout(function(){
-            messagesTopRef.current?.scrollIntoView({ behavior: "smooth" });
-            console.log("wtf");
-        }, 500);
-
-    };
-
     const sendMessage = (e) => {
         if(e.key === 'Enter'){
             if(messageRef?.current?.value){
@@ -107,80 +98,80 @@ const Match = () => {
         }
     }
 
-    const ensureOngoingMatch = async () => {
-        try{
-            const response = await api_get_me();
-            if(response.status !== 200 || !response?.data?.user?.current_match){
-                console.log("response.status !== 200 || !response?.data?.user?.current_match");
-                return setNoCurrentMatches(true);
-            }
-            const my_current_match = response.data.user.current_match;
-            const my_id = response.data.user._id;
-            const match_response = await api_get_user(my_current_match);
-            if(match_response.status !== 200 || !match_response?.data?.user?.current_match){
-                console.log("match_response.status !== 200 || !match_response?.data?.user?.current_match");
-                return setNoCurrentMatches(true);
-            }
-            if(my_id !== match_response.data.user.current_match){
-                console.log("my_id !== match_response.data.user.current_match");
-                return setNoCurrentMatches(true);
-            }
-            setMe(response.data.user);
-            setMyMatch(match_response.data.user);
-
-            const all_messages = await api_get_messages();
-            console.log('all_messages:',all_messages);
-            if(all_messages?.data?.messages?.length){
-                const all = [];
-                const oldest_message = all_messages.data.messages[0];
-                console.log('oldest_message:',oldest_message);
-                setCurrentOldestMessageDate(oldest_message.createdAt);
-                all_messages.data.messages.forEach(el => {
-                    const message_object = {from: el.from, data: el.message};
-                    all.push(message_object);
-                });
-                setChatMessages(all);
-                scrollToBottom();
-                if(all_messages?.data?.more_messages){
-                    setThereAreMoreMessages(true);
-                }
-            }
-
-            const access_token = localStorage.getItem("token");
-            const sck = io('http://localhost:8082', {
-                path: "/socket.io",
-                autoConnect: true,
-                extraHeaders: {
-                    access_token: access_token,
-                    room: response.data.user.room,
-                    user_id: response.data.user._id,
-                    name: response.data.user.name
-                }
-            });
-            console.log('sck:',sck);
-
-            sck.on('private', function(msg) {
-                const message_object = {from: 'user', data: msg};
-                setChatMessages(curr => [...curr, message_object]);
-                scrollToBottom();
-            });
-
-            sck.on('unmatched', function(msg) {
-                sck.disconnect();
-                console.log('you got unmatched. redirecting');
-                navigate(t('URL_UNMATCHED'));
-            });
-            setSocket(sck);
-        }
-        catch(exception){
-            console.log('exception:',exception);
-            setErrored(true);
-        }
-    };
-
     useEffect(() => {
+        const ensureOngoingMatch = async () => {
+            try{
+                const response = await api_get_me();
+                if(response.status !== 200 || !response?.data?.user?.current_match){
+                    console.log("response.status !== 200 || !response?.data?.user?.current_match");
+                    return setNoCurrentMatches(true);
+                }
+                const my_current_match = response.data.user.current_match;
+                const my_id = response.data.user._id;
+                const match_response = await api_get_user(my_current_match);
+                if(match_response.status !== 200 || !match_response?.data?.user?.current_match){
+                    console.log("match_response.status !== 200 || !match_response?.data?.user?.current_match");
+                    return setNoCurrentMatches(true);
+                }
+                if(my_id !== match_response.data.user.current_match){
+                    console.log("my_id !== match_response.data.user.current_match");
+                    return setNoCurrentMatches(true);
+                }
+                setMe(response.data.user);
+                setMyMatch(match_response.data.user);
+
+                const all_messages = await api_get_messages();
+                console.log('all_messages:',all_messages);
+                if(all_messages?.data?.messages?.length){
+                    const all = [];
+                    const oldest_message = all_messages.data.messages[0];
+                    console.log('oldest_message:',oldest_message);
+                    setCurrentOldestMessageDate(oldest_message.createdAt);
+                    all_messages.data.messages.forEach(el => {
+                        const message_object = {from: el.from, data: el.message};
+                        all.push(message_object);
+                    });
+                    setChatMessages(all);
+                    scrollToBottom();
+                    if(all_messages?.data?.more_messages){
+                        setThereAreMoreMessages(true);
+                    }
+                }
+
+                const access_token = localStorage.getItem("token");
+                const sck = io('http://localhost:8082', {
+                    path: "/socket.io",
+                    autoConnect: true,
+                    extraHeaders: {
+                        access_token: access_token,
+                        room: response.data.user.room,
+                        user_id: response.data.user._id,
+                        name: response.data.user.name
+                    }
+                });
+                console.log('sck:',sck);
+
+                sck.on('private', function(msg) {
+                    const message_object = {from: 'user', data: msg};
+                    setChatMessages(curr => [...curr, message_object]);
+                    scrollToBottom();
+                });
+
+                sck.on('unmatched', function(msg) {
+                    sck.disconnect();
+                    console.log('you got unmatched. redirecting');
+                    navigate(t('URL_UNMATCHED'));
+                });
+                setSocket(sck);
+            }
+            catch(exception){
+                console.log('exception:',exception);
+                setErrored(true);
+            }
+        };
+
         ensureOngoingMatch().catch(console.error);
-    }, []);
+    }, [navigate, t]);
 
     useLayoutEffect(() => {
         return () => {

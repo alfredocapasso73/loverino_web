@@ -12,7 +12,7 @@ const FormCheckbox = (props) => {
             <div className="col-11">
                 {props.preText && <span>{t(props.preText)}</span>}
                 &nbsp;
-                <a href={props.link} target="_blank">{t(props.linkText)}</a>
+                <a rel="noreferrer noopener"  href={props.link} target="_blank">{t(props.linkText)}</a>
                 &nbsp;
                 {props.afterText && <span>{t(props.afterText)}</span>}
             </div>

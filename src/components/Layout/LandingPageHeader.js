@@ -1,11 +1,9 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import '../../assets/css/theme-font.min.css';
 import '../../assets/Bootstrap/dist/css/bootstrap.css';
 import '../../assets/css/main.css';
 
 const LandingPageHeader = () => {
-    const { t } = useTranslation();
 
     return(
         <>

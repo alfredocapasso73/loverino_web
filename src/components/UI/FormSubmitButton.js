@@ -6,9 +6,9 @@ const FormSubmitButton = (props) => {
 
     return(
         <div className="form-group label-floating" style={{paddingTop: '20px'}}>
-            <a onClick={props.formClicked} className={`btn ${props.buttonColor} btn-lg full-width ${props.formButtonLoading}`}>
+            <div onClick={props.formClicked} className={`btn ${props.buttonColor} btn-lg full-width ${props.formButtonLoading}`}>
                 {t(props.buttonText)}
-            </a>
+            </div>
         </div>
     );
 }

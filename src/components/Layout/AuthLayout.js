@@ -11,11 +11,10 @@ import {
     get_your_profile_svg_icon,
     get_logout_svg_icon,
     get_open_right_menu_svg_icon,
-    get_close_right_menu_svg_icon, get_suggestions_svg_icon
+    get_close_right_menu_svg_icon
 } from "../../assets/Svg/Svg";
 import {API_URLS} from "../../services/api";
 import AppContext from "../AppContext";
-import {global_error_handler} from "../../helpers/GlobalError";
 
 const AuthLayout = () => {
     const navigate = useNavigate();
@@ -26,7 +25,6 @@ const AuthLayout = () => {
     const logout_svg_icon = get_logout_svg_icon();
     const right_menu_open_svg_icon = get_open_right_menu_svg_icon();
     const right_menu_close_svg_icon = get_close_right_menu_svg_icon();
-    const suggestion_icon = get_suggestions_svg_icon();
 
     const [avatar, setAvatar] = useState('');
     const [myName, setMyName] = useState('');
@@ -121,10 +119,10 @@ const AuthLayout = () => {
 
                 <div className={`fixed-sidebar right fixed-sidebar-responsive mobile_right_menu ${rightMenuOpened ? 'open' : ''}`} id="sidebar-right-responsive">
                     <div className="fixed-sidebar-right sidebar--small">
-                        <a href="#" className="js-sidebar-open">
+                        <div className="js-sidebar-open">
                             {!rightMenuOpened && <span onClick={e => openRightMenu(true)}>{right_menu_open_svg_icon}</span>}
                             {rightMenuOpened && <span onClick={e => openRightMenu(false)}>{right_menu_close_svg_icon}</span>}
-                        </a>
+                        </div>
                     </div>
                     <div className="fixed-sidebar-right sidebar--large">
                         <div className="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark">

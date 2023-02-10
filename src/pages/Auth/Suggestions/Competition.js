@@ -7,10 +7,8 @@ import {useNavigate} from "react-router-dom";
 import CompetitionUserProfile from "./CompetitionUserProfile";
 import CompetitionError from "./CompetitionError";
 import UserProfile from "./UserProfile";
-import TestUserProfile from "./TestUserProfile";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import {API_URLS} from "../../../services/api";
-import {global_error_handler} from "../../../helpers/GlobalError";
 
 const Competition = () => {
     const { t } = useTranslation();
@@ -23,7 +21,6 @@ const Competition = () => {
     const [competitionError, setCompetitionError] = useState(false);
     const [showingImagePopup, setShowingImagePopup] = useState(false);
     const [selectedWinner, setSelectedWinner] = useState(undefined);
-    const [winnerHasBeenSelected, setWinnerHasBeenSelected] = useState(false);
     const [clickedUser, setClickedUser] = useState();
     const [matched, setMatched] = useState(false);
 
@@ -65,7 +62,6 @@ const Competition = () => {
             };
             const response = await api_post_competition(body);
             setShowModal(false);
-            setWinnerHasBeenSelected(true);
             if(response.status !== 200){
                 setCompetitionError(true);
                 return;
@@ -100,35 +96,36 @@ const Competition = () => {
         }
     }
 
-    const getCurrentCompetition = async () => {
-        try{
-            const competition = await api_get_competition();
-            if(competition.status !== 200 || !competition?.data?.competition_id || !competition?.data?.users?.length){
-                console.log('no competition:');
-                console.log("go to suggestion page");
-                return navigate(t('URL_YOUR_SUGGESTIONS'));
-            }
-            setCompetitionId(competition.data.competition_id);
-            const users = competition.data.users;
-            console.log('users:',users);
-            const arr = [];
-            for await (const user of users){
-                const found = await api_get_user(user.user_id);
-                arr.push(found.data.user);
-                console.log('found:',found);
-            }
-            const cl = arr.length === 2 ? '6' : arr.length === 3 ? '4' : '3';
-            setCol(cl);
-            setCompetitionUsers(arr);
-        }
-        catch(exception){
-            console.log("exception",exception);
-        }
-    }
-
     useEffect(() => {
+
+        const getCurrentCompetition = async () => {
+            try{
+                const competition = await api_get_competition();
+                if(competition.status !== 200 || !competition?.data?.competition_id || !competition?.data?.users?.length){
+                    console.log('no competition:');
+                    console.log("go to suggestion page");
+                    return navigate(t('URL_YOUR_SUGGESTIONS'));
+                }
+                setCompetitionId(competition.data.competition_id);
+                const users = competition.data.users;
+                console.log('users:',users);
+                const arr = [];
+                for await (const user of users){
+                    const found = await api_get_user(user.user_id);
+                    arr.push(found.data.user);
+                    console.log('found:',found);
+                }
+                const cl = arr.length === 2 ? '6' : arr.length === 3 ? '4' : '3';
+                setCol(cl);
+                setCompetitionUsers(arr);
+            }
+            catch(exception){
+                console.log("exception",exception);
+            }
+        }
+
         getCurrentCompetition().catch(console.error);
-    }, []);
+    }, [navigate, t]);
 
     return(
         <div className="row">
@@ -201,7 +198,7 @@ const Competition = () => {
                         <div style={{position: 'relative'}}>
                             {
                                 clickedUser?.pictures?.length &&
-                                <img loading="lazy" src={`${API_URLS.USER_GET_IMAGE.url}/picture-${clickedUser.pictures[imagePosition]}`}  name="gigio" style={{width: '100%'}}/>
+                                <img alt="" loading="lazy" src={`${API_URLS.USER_GET_IMAGE.url}/picture-${clickedUser.pictures[imagePosition]}`}  style={{width: '100%'}}/>
                             }
                             {
                                 clickedUser?.pictures?.length > 1 &&

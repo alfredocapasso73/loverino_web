@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
-import {Link, Navigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const LandingPageInfoBox = (props) => {
     const { t } = useTranslation();

@@ -1,20 +1,14 @@
-import React, {useEffect, useState, useRef, useLayoutEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
-import {useNavigate} from "react-router-dom";
-import {api_get_me, api_get_user, api_get_messages, api_cancel_match} from "../../../services/data_provider";
+import {api_get_me, api_get_user} from "../../../services/data_provider";
 import MatchError from "./MatchError";
 import UserProfile from "../Suggestions/UserProfile";
-import {API_URLS} from "../../../services/api";
-import {get_more_svg_icon} from '../../../assets/Svg/Svg';
-import {io} from "socket.io-client";
 
 const ReMatched = () => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [errored, setErrored] = useState(false);
-    const [me, setMe] = useState(undefined);
     const [myMatch, setMyMatch] = useState(undefined);
 
     const ensureOngoingMatch = async () => {

@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
-import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
 
 const NoCurrentMatch = () => {

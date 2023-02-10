@@ -1,9 +1,7 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import {hide_error} from "../../helpers/UICommon";
 
 const AlertError = (props) => {
-    const { t } = useTranslation();
 
     return(
         <div className="alert alert-danger alert-dismissible fade show">

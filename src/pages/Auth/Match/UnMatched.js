@@ -1,13 +1,8 @@
-import React, {useEffect, useState, useRef, useLayoutEffect} from "react";
+import React, {useEffect} from "react";
 import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
-import {api_get_me, api_get_user, api_get_messages, api_cancel_match} from "../../../services/data_provider";
-import MatchError from "./MatchError";
-import {API_URLS} from "../../../services/api";
-import {get_more_svg_icon} from '../../../assets/Svg/Svg';
-import {io} from "socket.io-client";
 
 const UnMatched = () => {
     const { t } = useTranslation();
