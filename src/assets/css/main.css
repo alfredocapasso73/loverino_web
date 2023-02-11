@@ -1337,7 +1337,6 @@ img {
     padding-left: 0; }
   .header-content-wrapper {
     display: flex;
-    float: right;
     justify-content: space-between; } }
 
 @media (max-width: 1024px) {

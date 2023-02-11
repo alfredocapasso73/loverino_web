@@ -3,52 +3,60 @@ import { useTranslation } from 'react-i18next';
 
 const NoSuggestionLiked = (props) => {
     const { t } = useTranslation();
-    //const minutes_left = props.minutes_left;
-    const minutes_left = 1;
-    const [secondsLeft, setSecondsLeft] = useState(0);
-    const [minutesLeft, setMinutesLeft] = useState(parseInt(minutes_left) % 60);
-    const [hoursLeft, setHoursLeft] = useState(Math.floor(parseInt(minutes_left)/60));
-    //let timer
-    //const [count, setCount] = useState(parseInt(minutes_left)*60);
+    const [seconds, setSeconds] = useState('');
+    const [minutes, setMinutes] = useState('');
+    const [hours, setHours] = useState('00');
+    const [nrOfLoops, setNrOfLoops] = useState((props.minutes_left+2)*60);
+    let interval;
+
+    const calculateHours = (mn_lft) => {
+        const nr_of_hours = Math.floor(mn_lft/60);
+        const hours = nr_of_hours > 9 ? nr_of_hours : `0${nr_of_hours}`;
+        setHours(hours);
+    }
+
+    const calculateMinutes = (mn_lft) => {
+        const nr_of_minutes = Math.floor(mn_lft%60);
+        const minutes = nr_of_minutes > 9 ? nr_of_minutes : `0${nr_of_minutes}`;
+        setMinutes(minutes);
+    }
 
     useEffect(() => {
-        if(1 > 2){
-            setSecondsLeft(0);
-            setMinutesLeft(0);
-            setHoursLeft(0);
+        if (nrOfLoops < 0) {
+            clearInterval(interval);
+            window.location.reload();
         }
-
-
-        /*const updateCount = () => {
-            timer = !timer && setInterval(() => {
-                if(count % 60 === 0){
-                    setSecondsLeft(prevSeconds => 59);
-                    if(minutesLeft === 0){
-                        setMinutesLeft(prevCount => 59);
-                        setHoursLeft(prevCount => prevCount - 1);
-                    }
-                    else{
-                        setMinutesLeft(prevCount => prevCount - 1);
-                    }
+        else{
+            const mn_lft = nrOfLoops/60;
+            if(nrOfLoops % 60 === 0){
+                if(mn_lft > 59){
+                    calculateHours(mn_lft);
                 }
-                else{
-                    setSecondsLeft(prevCount => prevCount - 1)
-                }
-                setCount(prevCount => prevCount - 1)
-            }, 1000)
-
-            if (count === 0){
-                console.log("over");
-                clearInterval(timer)
+                calculateMinutes(mn_lft);
+                setSeconds('00');
             }
-        }*/
-
-        if(!props.none_at_all){
-            console.log("!props.none_at_all");
-            //updateCount();
-            //return () => clearInterval(timer);
+            else{
+                if(nrOfLoops % 60 === 59){
+                    calculateMinutes(mn_lft);
+                    if(mn_lft > 59){
+                        calculateHours(mn_lft);
+                    }
+                }
+                const nr_of_seconds = nrOfLoops%60;
+                const secs = nr_of_seconds > 9 ? nr_of_seconds : `0${nr_of_seconds}`;
+                setSeconds(secs);
+            }
         }
-    }, [props.none_at_all])
+    }, [nrOfLoops]);
+
+    useEffect(() => {
+        interval = setInterval(() => {
+            setNrOfLoops((time) => time - 1);
+        }, 1000);
+        return () => {
+            clearInterval(interval)
+        }
+    }, []);
 
 
 
@@ -80,15 +88,12 @@ const NoSuggestionLiked = (props) => {
                 !props.none_at_all &&
                 <div className="text-center">
                     <div style={{fontSize: '1.5rem'}}>
-                        {hoursLeft < 9 && <span>0{hoursLeft}</span>}:
-                        {minutesLeft <= 9 && <span>0{minutesLeft}:</span>}
-                        {minutesLeft > 9 && <span>{minutesLeft}:</span>}
-                        {secondsLeft <= 9 && <span>0{secondsLeft}</span>}
-                        {secondsLeft > 9 && <span>{secondsLeft}</span>}
+                        {hours}:
+                        {minutes}:
+                        {seconds}
                     </div>
                 </div>
             }
-
         </div>
     );
 }
