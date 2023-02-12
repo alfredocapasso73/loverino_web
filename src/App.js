@@ -111,8 +111,8 @@ const App = () => {
                             <Route path={t('URL_MY_PICTURES')} element={<MyPictures />} />
                             <Route path={t('URL_NOTIFICATION')} element={<Notifications />} />
                             <Route path={t('URL_ACCOUNT')} element={<MyAccount />} />
-                            <Route path={t('URL_FAVORITES')} element={<Favorites />} />
-                            <Route path={t('URL_REFUSED')} element={<Refused />} />
+                            <Route path={`${t('URL_FAVORITES')}/:page`} element={<Favorites />} />
+                            <Route path={`${t('URL_REFUSED')}/:page`} element={<Refused />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

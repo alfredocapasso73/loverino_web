@@ -380,6 +380,28 @@ export async function api_get_me(){
     }
 }
 
+export async function api_get_refused_users(){
+    try{
+        const request = await make_request(API_URLS.USER_GET_REFUSED_USERS, {});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function api_get_favorite_users(){
+    try{
+        const request = await make_request(API_URLS.USER_GET_FAVORITE_USERS, {});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_get_regions(){
     try{
         const request = await make_request(API_URLS.GEO_GET_REGIONS);

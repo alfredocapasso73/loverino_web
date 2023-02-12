@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import { useTranslation } from 'react-i18next';
 
 const NoSuggestionLiked = (props) => {
@@ -7,7 +7,8 @@ const NoSuggestionLiked = (props) => {
     const [minutes, setMinutes] = useState('');
     const [hours, setHours] = useState('00');
     const [nrOfLoops, setNrOfLoops] = useState((props.minutes_left+2)*60);
-    let interval;
+
+    let interval = useRef();
 
     const calculateHours = (mn_lft) => {
         const nr_of_hours = Math.floor(mn_lft/60);
@@ -23,7 +24,7 @@ const NoSuggestionLiked = (props) => {
 
     useEffect(() => {
         if (nrOfLoops < 0) {
-            clearInterval(interval);
+            clearInterval(interval.current);
             window.location.reload();
         }
         else{
@@ -47,16 +48,16 @@ const NoSuggestionLiked = (props) => {
                 setSeconds(secs);
             }
         }
-    }, [nrOfLoops]);
+    }, [nrOfLoops, interval]);
 
     useEffect(() => {
-        interval = setInterval(() => {
+        interval.current = setInterval(() => {
             setNrOfLoops((time) => time - 1);
         }, 1000);
         return () => {
-            clearInterval(interval)
+            clearInterval(interval.current)
         }
-    }, []);
+    }, [interval]);
 
 
 

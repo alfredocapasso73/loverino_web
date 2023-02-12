@@ -31,6 +31,8 @@ export const API_URLS =
         ,USER_GET_MESSAGE_HISTORY: {url: `${USER_PREFIX}/getMessageHistory`, method: 'POST', auth: true}
         ,USER_CANCEL_CURRENT_MATCH: {url: `${USER_PREFIX}/cancelCurrentMatch`, method: 'PUT', auth: true}
         ,USER_REFRESH_TOKEN: {url: `${USER_PREFIX}/refreshToken`, method: 'POST', auth: false}
+        ,USER_GET_REFUSED_USERS: {url: `${USER_PREFIX}/getRefusedUsers`, method: 'POST', auth: true}
+        ,USER_GET_FAVORITE_USERS: {url: `${USER_PREFIX}/getFavoriteUsers`, method: 'POST', auth: true}
         ,GEO_GET_REGIONS: {url: `${GEO_PREFIX}/region`, method: 'GET', auth: false}
         ,GEO_GET_CITIES: {url: `${GEO_PREFIX}/city`, method: 'GET', auth: false}
         ,SUGGESTION_GET_MINE: {url: `${SUGGESTION_PREFIX}/suggestions`, method: 'GET', auth: true}

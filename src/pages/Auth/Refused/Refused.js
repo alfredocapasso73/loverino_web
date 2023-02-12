@@ -1,12 +1,36 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
+import {api_get_refused_users} from "../../../services/data_provider";
+import UsersList from "../Common/UsersList";
 
 const Refused = () => {
     const { t } = useTranslation();
+    const [refused, setRefused] = useState([]);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [refusedFetched, setRefusedFetched] = useState(false);
+
+    const fetchRefusedUsers = async () => {
+        try{
+            const result = await api_get_refused_users();
+            if(result?.status === 200){
+                setRefused(result.data.user_list);
+                setNumberOfPages(result.data.nr_of_pages);
+            }
+            setRefusedFetched(true);
+            console.log("result",result);
+        }
+        catch(exception){
+            console.log('exception',exception);
+            setRefusedFetched(true);
+            throw exception;
+        }
+    }
 
     useEffect(() => {
+        fetchRefusedUsers().catch(console.log);
         console.log("Refused");
     }, []);
 
@@ -24,9 +48,14 @@ const Refused = () => {
                         </div>
                     </div>
                     <div className="ui-block-content">
-                        <p className="text-center">
-                            {t('REFUSED_TEXT')}
-                        </p>
+                        <div className="text-center">
+                            {refusedFetched && refused.length === 0 && <span>{t('NO_REFUSED_YET')}</span>}
+                            {refusedFetched && refused.length > 0 && <span>{t('THESE_ARE_YOUR_REFUSED')}</span>}
+                        </div>
+                        {
+                            refusedFetched && refused.length > 0 &&
+                            <UsersList users={refused} numberOfPages={numberOfPages} currentPage={currentPage}/>
+                        }
                     </div>
                 </div>
             </div>
