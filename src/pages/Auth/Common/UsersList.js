@@ -8,6 +8,10 @@ const UsersList = (props) => {
         console.log("UsersList");
     }, []);
 
+    const doVoid = () => {
+        console.log("doVoid");
+    }
+
 
     return(
         <div>
@@ -18,28 +22,45 @@ const UsersList = (props) => {
             </div>
             <div className="row">
                 <div className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
-                    <nav aria-label="Page navigation">
-                        <ul className="pagination justify-content-center">
-                            {
-                                props.numberOfPages > 0 && props.currentPage > 1
-                            }
-                            <li className="page-item disabled">
-                                <span className="page-link" href="#" tabIndex="-1">Previous</span>
-                            </li>
-                            <li className="page-item pointer">
-                                <span className="page-link" href="#">
-                                    1
-                                </span>
-                            </li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link" href="#">...</a></li>
-                            <li className="page-item"><a className="page-link" href="#">12</a></li>
-                            <li className="page-item">
-                                <a className="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    {
+                        props.numberOfPages > 0 &&
+                        <nav aria-label="Page navigation">
+                            <ul className="pagination justify-content-center">
+                                <li className={`pointer page-item ${props.currentPage === 1 ? 'disabled' : ''}`} onClick={e => props.currentPage === 1 ? doVoid() : props.setCurrentPage(1)}>
+                                    <span className="page-link">Previous</span>
+                                </li>
+                                {
+                                    (props.currentPage-2) > 0 &&
+                                    <li className="page-item pointer" onClick={e => props.setCurrentPage((props.currentPage-2))}>
+                                        <span className="page-link">{(props.currentPage-2)}</span>
+                                    </li>
+                                }
+                                {
+                                    (props.currentPage-1) > 0 &&
+                                    <li className="page-item pointer" onClick={e => props.setCurrentPage((props.currentPage-1))}>
+                                        <span className="page-link">{(props.currentPage-1)}</span>
+                                    </li>
+                                }
+                                <li className="page-item pointer disabled"><span className="page-link">{props.currentPage}</span></li>
+                                {
+                                    (props.currentPage+1) < props.numberOfPages &&
+                                    <li className="page-item pointer" onClick={e => props.setCurrentPage((props.currentPage+1))}>
+                                        <span className="page-link">{(props.currentPage+1)}</span>
+                                    </li>
+                                }
+                                {
+                                    (props.currentPage+2) < props.numberOfPages &&
+                                    <li className="page-item pointer" onClick={e => props.setCurrentPage((props.currentPage+2))}>
+                                        <span className="page-link">{(props.currentPage+2)}</span>
+                                    </li>
+                                }
+                                <li className={`pointer page-item ${props.currentPage === props.numberOfPages ? 'disabled' : ''}`}  onClick={e => props.setCurrentPage((props.numberOfPages))}>
+                                    <span className="page-link">Next</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    }
+
                 </div>
             </div>
         </div>

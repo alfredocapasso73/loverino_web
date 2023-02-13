@@ -380,9 +380,9 @@ export async function api_get_me(){
     }
 }
 
-export async function api_get_refused_users(){
+export async function api_get_refused_users(current_page){
     try{
-        const request = await make_request(API_URLS.USER_GET_REFUSED_USERS, {});
+        const request = await make_request(API_URLS.USER_GET_REFUSED_USERS, {current_page: current_page});
         return request;
     }
     catch(exception){

@@ -12,9 +12,13 @@ const Refused = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [refusedFetched, setRefusedFetched] = useState(false);
 
+    useEffect(() => {
+        fetchRefusedUsers().catch(console.log);
+    }, [currentPage]);
+
     const fetchRefusedUsers = async () => {
         try{
-            const result = await api_get_refused_users();
+            const result = await api_get_refused_users(currentPage);
             if(result?.status === 200){
                 setRefused(result.data.user_list);
                 setNumberOfPages(result.data.nr_of_pages);
@@ -54,7 +58,7 @@ const Refused = () => {
                         </div>
                         {
                             refusedFetched && refused.length > 0 &&
-                            <UsersList users={refused} numberOfPages={numberOfPages} currentPage={currentPage}/>
+                            <UsersList users={refused} numberOfPages={numberOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                         }
                     </div>
                 </div>
