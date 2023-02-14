@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {API_URLS} from "../../../services/api";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
@@ -56,10 +56,6 @@ const UsersList = (props) => {
         console.log("doVoid");
     }
 
-    const callRestoreUser = (usr) => {
-        console.log("callRestoreUser:",usr);
-    }
-
     const getAge = (birthday) => {
         return get_age_from_birthday(birthday);
     }
@@ -87,9 +83,12 @@ const UsersList = (props) => {
                                         <div style={{width: '100%', position: 'relative'}} className="text-center">
                                             <div className={`img_with_trash ${usr.restore_clicked ? 'img_with_trash_opaque' : ''}`}>
                                                 <img src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
-                                                <div className="pointer trash_can_picture"  onClick={e => props.restore(usr, true)}>
-                                                    <img alt="" src="/img/svg/icons8-delete-trash-15.png" />
-                                                </div>
+                                                {
+                                                    usr._id !== props?.currentMatch &&
+                                                    <div className="pointer trash_can_picture"  onClick={e => props.restore(usr, true)}>
+                                                        <img alt="" src="/img/svg/icons8-delete-trash-15.png" />
+                                                    </div>
+                                                }
                                                 <div className="pointer zooom_picture" onClick={e => onImageClick(usr)}>
                                                     <img alt="" src="/img/svg/icons8-zoom-in-15.png" />
                                                 </div>

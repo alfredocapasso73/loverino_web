@@ -4,7 +4,7 @@ import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {
     api_get_favorite_users,
     api_restore_favorite_user,
-    api_restore_refused_user
+    api_get_me
 } from "../../../services/data_provider";
 import UsersList from "../Common/UsersList";
 
@@ -14,6 +14,7 @@ const Favorites = () => {
     const [favoritesFetched, setFavoritesFetched] = useState(false);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
+    const [currentMatch, setCurrentMatch] = useState('');
 
     useEffect(() => {
         fetchFavoriteUsers().catch(console.log);
@@ -60,7 +61,21 @@ const Favorites = () => {
             ));
     }
 
+    const fetchMe = async () => {
+        try{
+            const result = await api_get_me();
+            if(result?.status === 200 && result?.data?.user?.current_match){
+                setCurrentMatch(result.data.user.current_match);
+            }
+        }
+        catch(exception){
+            console.log('exception',exception);
+            throw exception;
+        }
+    }
+
     useEffect(() => {
+        fetchMe().catch(console.log);
         fetchFavoriteUsers().catch(console.log);
         console.log("Favorites");
     }, []);
@@ -89,6 +104,7 @@ const Favorites = () => {
                             setCurrentPage={setCurrentPage}
                             restore={restore}
                             confirmRestoreText={t('CONFIRM_REMOVE_FROM_FAVORITES')}
+                            currentMatch={currentMatch}
                         />
                     }
                 </div>

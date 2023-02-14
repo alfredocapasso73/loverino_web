@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef, useLayoutEffect} from "react";
 import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
-import {api_get_me, api_get_user, api_get_messages, api_cancel_match, api_get_message_history} from "../../../services/data_provider";
+import {api_get_me, api_get_user, api_get_messages, api_cancel_match, api_get_message_history, api_read_messages} from "../../../services/data_provider";
 import MatchError from "./MatchError";
 import NoCurrentMatch from "./NoCurrentMatch";
 import {API_URLS} from "../../../services/api";
@@ -27,6 +27,16 @@ const Match = () => {
     const [currentOldestMessageDate, setCurrentOldestMessageDate] = useState('');
 
     const [thereAreMoreMessages, setThereAreMoreMessages] = useState(false);
+
+    const readMessages = async () => {
+        try{
+            const result = await api_read_messages();
+            console.log("result:", result);
+        }
+        catch(exception){
+            console.log("exception:", exception);
+        }
+    }
 
     const getMessageHistory = async () => {
         try{
@@ -136,6 +146,7 @@ const Match = () => {
                         setThereAreMoreMessages(true);
                     }
                 }
+                await readMessages();
 
                 const access_token = localStorage.getItem("token");
                 const sck = io('http://localhost:8082', {
@@ -211,9 +222,9 @@ const Match = () => {
                         </div>
                         <div className="ui-block-content" style={{height: '80vh', position: 'relative'}}>
                             <div style={{position: 'absolute', bottom: '20px', width: '95%'}}>
-                                <input onKeyPress={e => sendMessage(e)} type="text" ref={messageRef} style={{border: '1px solid gray', width: '100%'}} placeholder="Enter message"/>
+                                <input onClick={readMessages} onKeyPress={e => sendMessage(e)} type="text" ref={messageRef} style={{border: '1px solid gray', width: '100%'}} placeholder="Enter message"/>
                             </div>
-                            <div style={{height: '85%', border: '1px solid gray', padding: '5px', overflowY: 'scroll', borderRadius: '5px'}}>
+                            <div style={{height: '85%', border: '1px solid gray', padding: '5px', overflowY: 'scroll', borderRadius: '5px'}} onClick={readMessages} >
                                 {
                                     thereAreMoreMessages &&
                                     <div className="a_div text-center pointer" style={{paddingBottom: '15px'}} onClick={getMessageHistory}>
