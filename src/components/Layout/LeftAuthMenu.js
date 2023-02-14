@@ -19,12 +19,12 @@ const LeftAuthMenu = (props) => {
                         </Link>
                     </div>
                     <div className="ui-block-title">
-                        <Link to={`${t('URL_FAVORITES')}/1`} className="h6 title">
+                        <Link to={`${t('URL_FAVORITES')}`} className="h6 title">
                             {t('LINK_FAVORITES')}
                         </Link>
                     </div>
                     <div className="ui-block-title">
-                        <Link to={`${t('URL_REFUSED')}/1`} className="h6 title">
+                        <Link to={`${t('URL_REFUSED')}`} className="h6 title">
                             {t('LINK_REFUSED')}
                         </Link>
                     </div>

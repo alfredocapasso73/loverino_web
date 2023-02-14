@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {api_get_me, api_get_user} from "../../../services/data_provider";
 import MatchError from "./MatchError";

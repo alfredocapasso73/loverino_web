@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 
 const CompetitionWinner = (props) => {
     const { t } = useTranslation();

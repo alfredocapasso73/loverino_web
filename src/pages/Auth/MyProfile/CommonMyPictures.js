@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import {api_delete_image, api_get_me, api_upload_picture} from "../../../services/data_provider";
 import {API_URLS} from "../../../services/api";
 import {useNavigate} from "react-router-dom";

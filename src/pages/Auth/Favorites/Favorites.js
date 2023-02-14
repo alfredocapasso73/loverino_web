@@ -1,20 +1,33 @@
 import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
-import {api_get_favorite_users} from "../../../services/data_provider";
+import {
+    api_get_favorite_users,
+    api_restore_favorite_user,
+    api_restore_refused_user
+} from "../../../services/data_provider";
+import UsersList from "../Common/UsersList";
 
 const Favorites = () => {
     const { t } = useTranslation();
     const [favorites, setFavorites] = useState([]);
     const [favoritesFetched, setFavoritesFetched] = useState(false);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
+    useEffect(() => {
+        fetchFavoriteUsers().catch(console.log);
+    }, [currentPage]);
 
     const fetchFavoriteUsers = async () => {
         try{
-            const result = await api_get_favorite_users();
-            if(result?.status === 200 && result?.data?.favorite_list?.length){
-                setFavorites(result.data.favorite_list);
+            const result = await api_get_favorite_users(currentPage);
+            if(result?.status === 200 && result?.data?.user_list?.length){
+                result.data.user_list.forEach(el => {
+                    el.restore_clicked = false;
+                })
+                setFavorites(result.data.user_list);
+                setNumberOfPages(result.data.nr_of_pages);
             }
             setFavoritesFetched(true);
         }
@@ -23,6 +36,28 @@ const Favorites = () => {
             setFavoritesFetched(true);
             throw exception;
         }
+    }
+
+    const confirmRestore = async (user) => {
+        try{
+            const result = await api_restore_favorite_user(user._id);
+            if(result?.status === 200){
+                window.location.reload();
+            }
+        }
+        catch(exception){
+            console.log('exception',exception);
+            throw exception;
+        }
+    }
+
+    const restore = (user, flag) => {
+        setFavorites(
+            favorites.map(item =>
+                item._id === user._id
+                    ? {...item, restore_clicked : flag}
+                    : item
+            ));
     }
 
     useEffect(() => {
@@ -43,12 +78,19 @@ const Favorites = () => {
                             </h6>
                         </div>
                     </div>
-                    <div className="ui-block-content">
-                        <div className="text-center">
-                            {favoritesFetched && favorites.length === 0 && <span>{t('NO_FAVORITES_YET')}</span>}
-                            {favoritesFetched && favorites.length > 0 && <span>{t('THESE_ARE_YOUR_FAVORITES')}</span>}
-                        </div>
-                    </div>
+                    {favoritesFetched && favorites.length === 0 && <div className="text-center">{t('NO_FAVORITES_YET')}</div>}
+                    {
+                        favoritesFetched && favorites.length > 0 &&
+                        <UsersList
+                            confirmRestore={confirmRestore}
+                            users={favorites}
+                            numberOfPages={numberOfPages}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            restore={restore}
+                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_FAVORITES')}
+                        />
+                    }
                 </div>
             </div>
         </div>

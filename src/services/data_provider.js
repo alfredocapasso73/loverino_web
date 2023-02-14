@@ -391,9 +391,31 @@ export async function api_get_refused_users(current_page){
     }
 }
 
-export async function api_get_favorite_users(){
+export async function api_restore_refused_user(restore_id){
     try{
-        const request = await make_request(API_URLS.USER_GET_FAVORITE_USERS, {});
+        const request = await make_request(API_URLS.USER_RESTORE_REFUSED_USER, {restore_id: restore_id});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function api_restore_favorite_user(restore_id){
+    try{
+        const request = await make_request(API_URLS.USER_RESTORE_FAVORITE_USER, {restore_id: restore_id});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function api_get_favorite_users(current_page){
+    try{
+        const request = await make_request(API_URLS.USER_GET_FAVORITE_USERS, {current_page: current_page});
         return request;
     }
     catch(exception){

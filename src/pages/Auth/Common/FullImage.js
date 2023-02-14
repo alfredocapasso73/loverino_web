@@ -1,5 +1,4 @@
 import React from "react";
-import '../../../assets/css/monogomic.css'
 
 const FullImage = (props) => {
 

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftProfileMenu from "../../../components/Layout/LeftProfileMenu";
 import {api_close_account} from "../../../services/data_provider";
 

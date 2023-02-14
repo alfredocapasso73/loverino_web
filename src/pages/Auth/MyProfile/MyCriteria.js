@@ -1,6 +1,5 @@
 import React, {useRef, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftProfileMenu from "../../../components/Layout/LeftProfileMenu";
 
 const MyCriteria = () => {

@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useRef, useLayoutEffect} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
 import {api_get_me, api_get_user, api_get_messages, api_cancel_match, api_get_message_history} from "../../../services/data_provider";

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import '../../../assets/css/monogomic.css'
 import LeftProfileMenu from "../../../components/Layout/LeftProfileMenu";
 import {api_get_me, api_update_notifications} from "../../../services/data_provider";
 
