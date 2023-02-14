@@ -29,6 +29,7 @@ export const API_URLS =
         ,USER_GET_USER: {url: `${USER_PREFIX}/getUser`, method: 'GET', auth: true}
         ,USER_GET_MESSAGES: {url: `${USER_PREFIX}/getMessages`, method: 'POST', auth: true}
         ,USER_READ_MESSAGES: {url: `${USER_PREFIX}/readMessages`, method: 'POST', auth: true}
+        ,USER_UNREAD_MESSAGES: {url: `${USER_PREFIX}/unreadMessages`, method: 'POST', auth: true}
         ,USER_GET_MESSAGE_HISTORY: {url: `${USER_PREFIX}/getMessageHistory`, method: 'POST', auth: true}
         ,USER_CANCEL_CURRENT_MATCH: {url: `${USER_PREFIX}/cancelCurrentMatch`, method: 'PUT', auth: true}
         ,USER_REFRESH_TOKEN: {url: `${USER_PREFIX}/refreshToken`, method: 'POST', auth: false}

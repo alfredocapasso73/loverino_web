@@ -138,6 +138,17 @@ export async function api_signup(body){
     }
 }
 
+export async function api_unread_messages(){
+    try{
+        const request = await make_request(API_URLS.USER_UNREAD_MESSAGES, {});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_read_messages(){
     try{
         const request = await make_request(API_URLS.USER_READ_MESSAGES, {});
