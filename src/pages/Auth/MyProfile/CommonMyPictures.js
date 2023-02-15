@@ -25,7 +25,6 @@ const CommonMyPictures = (props) => {
     const onImageClick = (url) => {
         console.log('url:',url);
         setCurrentImgUrl(url);
-        //setClickedUser(user);
         setShowingImagePopup(true);
     }
 
@@ -53,6 +52,9 @@ const CommonMyPictures = (props) => {
                 });
                 setImages(all_images);
             }
+            else{
+                setImages([]);
+            }
         }
         catch(exception){
             console.log("exception",exception);
@@ -67,9 +69,7 @@ const CommonMyPictures = (props) => {
         setIsUploading(true);
         try{
             for await(const picture of files){
-                console.log("picture",picture);
                 const result = await api_upload_picture(picture);
-                console.log("result",result);
             }
             const response = await api_get_me();
 
@@ -92,7 +92,6 @@ const CommonMyPictures = (props) => {
     }
 
     const confirmRemovePicture = async () => {
-        console.log('confirmRemovePicture');
         try{
             const response = await api_delete_image(currentPictureToRemove);
             if(response.status === 200){
@@ -102,6 +101,9 @@ const CommonMyPictures = (props) => {
                 setImageDeletedFailure(true);
             }
             await getImages();
+            setTimeout(function(){
+                window.location.reload()
+            }, 2000);
         }
         catch(exception){
             console.log("exception",exception);
@@ -135,7 +137,7 @@ const CommonMyPictures = (props) => {
                         <div className="row">
                             {
                                 images && images.map((img, index) =>
-                                    <div key={index} className="col col-xl-3 col-lg-3  col-md-6  col-sm-6" style={{padding: '5px'}}>
+                                    <div key={index} className="col col-xl-3 col-lg-3  col-md-6  col-sm-6">
                                         <div style={{width: '100%', position: 'relative'}} className="text-center">
                                             <div className="img_with_trash">
                                                 <img src={img.url} alt="" className="user_profile_image" />
@@ -150,10 +152,10 @@ const CommonMyPictures = (props) => {
                                                     </div>
                                                 }
                                                 <div className="pointer trash_can_picture"  onClick={e => removePicture(img.id)}>
-                                                    <img alt="" src="/img/svg/icons8-delete-trash-15.png" />
+                                                    <i className="fa-solid fa-trash"></i>
                                                 </div>
                                                 <div className="pointer zooom_picture" onClick={e => onImageClick(img.url)}>
-                                                    <img alt="" src="/img/svg/icons8-zoom-in-15.png" />
+                                                    <i className="fa-solid fa-magnifying-glass"></i>
                                                 </div>
                                             </div>
                                         </div>

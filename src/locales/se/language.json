@@ -231,6 +231,14 @@
   "CONFIRM_REMOVE_FROM_FAVORITES": "Ta bort från gillade",
   "OR": "eller",
   "CANCEL": "Avbryt",
+  "YOUR_MATCH": "Din match",
+  "ABOUT_LOVERINO": "Om Loverino",
+  "ABOUT_LOVERINO_COPY_1": "Loverino är en dejtingtjänst som utformats på ett litet annorlunda sätt. Till skillnad från andra liknande tjänster är det till exempel inte möjligt att 'matcha' med fler än 1 person.",
+  "ABOUT_LOVERINO_COPY_2": "Loverino vänder sig primärt till personer som vill hitta en partner för livet. För så som tjänsten är utformad och då det saknas konceptet med att ha flera pågående matcher, så skulle det inte riktigt löna sig att använda denna tjänst för skojs skull.",
+  "ABOUT_LOVERINO_COPY_3": "Vill man hitta en person för kvällen eller bara ha ytliga relationer får man då lov att använda andra tjänster. Här hos Loverino ä det tänkt att man ska lära känna den andra person på ett djupare plan.",
+
+  "COOKIE_POLICY_1": "Vi vill att du som användare ska känna förtroende för oss. Loverino ser därför till att skydda din personliga integritet. En viktig del av detta är att ge dig som användare så mycket information som möjligt om hur vi använder dina personuppgifter. ",
+  "COOKIE_POLICY_2": "Loverino lagrar data av dig som användare i en cookie i webbläsare för att kunna ge dig bästa möjliga upplevelse. Datat delas inte med andra aktörer och används enbart för att se till att ditt besök ska upplevas optimalt, såsom till exempel för att kunna låta dig loggas in per automatik. Inget känsligt data sparas i cookie dock.",
 
 
 
@@ -273,6 +281,7 @@
   "URL_MY_PICTURES": "/mina-bilder",
   "URL_NOTIFICATION": "/mina-notifieringar",
   "URL_MATCH": "/match",
+  "URL_VIEW_MATCH": "/min-match",
   "URL_UNMATCHED": "/unmatched",
   "URL_REMATCHED": "/rematched",
   "URL_FAVORITES": "/favoriter",

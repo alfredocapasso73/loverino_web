@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import {Link} from 'react-router-dom';
-import {api_unread_messages, api_get_me} from "../../services/data_provider";
+import {api_unread_messages} from "../../services/data_provider";
+import AppContext from "../AppContext";
+
 const LeftAuthMenu = (props) => {
     const { t } = useTranslation();
     let interval_id;
     const [numberOfUnreadMessages, setNumberOfUnreadMessages] = useState(0);
+    const globalContext = useContext(AppContext);
 
     const fetchUnreadMessages = async () => {
         try{
@@ -21,10 +24,12 @@ const LeftAuthMenu = (props) => {
     }
 
     useEffect(() => {
-        interval_id = setInterval(function(){
-            fetchUnreadMessages().catch(console.log);
-        }, 2000);
-        return () => clearInterval(interval_id);
+        if(globalContext?.loggedInUserDetails?.current_match){
+            interval_id = setInterval(function(){
+                fetchUnreadMessages().catch(console.log);
+            }, 2000);
+            return () => clearInterval(interval_id);
+        }
     }, []);
 
     return(

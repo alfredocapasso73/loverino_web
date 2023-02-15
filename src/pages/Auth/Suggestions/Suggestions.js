@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {api_get_suggestions, api_post_vote, api_get_competition, api_get_user} from "../../../services/data_provider";
@@ -7,10 +7,12 @@ import UserProfile from "./UserProfile";
 import SuggestionError from "./SuggestionError";
 import CurrentlyMatched from "./CurrentlyMatched";
 import {useNavigate} from "react-router-dom";
+import AppContext from "../../../components/AppContext";
 
 const Suggestions = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const globalContext = useContext(AppContext);
     const [isCurrentlyMatched, setIsCurrentlyMatched] = useState(false);
     const [didNotLikeAnybody, setDidNotLikeAnybody] = useState(false);
     const [nextSuggestionsAvailableWithinMinutes, setNextSuggestionsAvailableWithinMinutes] = useState(0);
@@ -40,7 +42,9 @@ const Suggestions = () => {
                         const match_found = response?.data?.you_got_a_match;
                         if(match_found){
                             const match = await api_get_user(match_found);
-                            console.log("match",match);
+                            const loggedInUserDetails = globalContext.loggedInUserDetails;
+                            loggedInUserDetails.current_match = match_found;
+                            globalContext.loggedInUserDetails = loggedInUserDetails;
                             setMatched(true);
                         }
                         return;

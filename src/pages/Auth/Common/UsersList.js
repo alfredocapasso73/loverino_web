@@ -86,12 +86,15 @@ const UsersList = (props) => {
                                                 {
                                                     usr._id !== props?.currentMatch &&
                                                     <div className="pointer trash_can_picture"  onClick={e => props.restore(usr, true)}>
-                                                        <img alt="" src="/img/svg/icons8-delete-trash-15.png" />
+                                                        <i className="fa-solid fa-trash"></i>
                                                     </div>
                                                 }
-                                                <div className="pointer zooom_picture" onClick={e => onImageClick(usr)}>
-                                                    <img alt="" src="/img/svg/icons8-zoom-in-15.png" />
-                                                </div>
+                                                {
+                                                    usr.pictures.length > 0 &&
+                                                    <div className="pointer zooom_picture" onClick={e => onImageClick(usr)}>
+                                                        <i className="fa-solid fa-magnifying-glass"></i>
+                                                    </div>
+                                                }
                                             </div>
                                             {
                                                 usr.restore_clicked &&

@@ -247,6 +247,9 @@ const AuthLayout = () => {
                                         avatar &&
                                         <img alt="author" src={avatar} width="36" height="36" className="avatar"/>
                                     }
+                                    {
+                                        !avatar && <i className="fas fa-user"></i>
+                                    }
                                     <div className="more-dropdown more-with-triangle">
                                         <div className="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark" data-ps-id="c202b05e-eb6f-8895-0500-2eb711c2dc8e">
                                             <div className="ui-block-title ui-block-title-small">

@@ -10,8 +10,11 @@ const CompetitionUserProfile = (props) => {
     const { t } = useTranslation();
 
     const imageClicked = () => {
-        props.om_image_clicked(props.user);
-        console.log("imageClicked");
+        if(props.user?.pictures?.length){
+            props.om_image_clicked(props.user);
+            console.log("imageClicked");
+        }
+        console.log("nothing to see");
     }
 
     return(

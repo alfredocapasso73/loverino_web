@@ -10,14 +10,17 @@ import NotFound from "./pages/NonAuth/NotFound/NotFound";
 import Error from "./pages/NonAuth/Error/Error";
 import Activate from "./pages/NonAuth/Activate/Activate";
 import TermsAndCondition from "./pages/NonAuth/TermsAndCondition/TermsAndCondition";
+import About from "./pages/NonAuth/About/About";
 import ForgotPassword from "./pages/NonAuth/ForgotPassword/ForgotPassword";
 import RestoreLinkSent from "./pages/NonAuth/RestoreLinkSent/RestoreLinkSent";
 import Restore from "./pages/NonAuth/Restore/Restore";
 import PasswordRestored from "./pages/NonAuth/PasswordRestored/PasswordRestored";
+import ChangeLanguage from './components/ChangeLanguage';
 
 import Start from './pages/Auth/Start/Start';
 import Suggestions from './pages/Auth/Suggestions/Suggestions';
 import Match from './pages/Auth/Match/Match';
+import ViewMatch from './pages/Auth/Match/ViewMatch';
 import UnMatched from './pages/Auth/Match/UnMatched';
 import ReMatched from './pages/Auth/Match/ReMatched';
 import Favorites from './pages/Auth/Favorites/Favorites';
@@ -41,6 +44,9 @@ import './assets/css/theme-font.min.css';
 import './assets/css/main.css';
 import './assets/Bootstrap/dist/css/bootstrap.css';
 import './assets/css/loverino.css';
+import './assets/fontawesome/css/fontawesome.min.css';
+import './assets/fontawesome/css/brands.min.css';
+import './assets/fontawesome/css/solid.min.css';
 
 const App = () => {
     const { t } = useTranslation();
@@ -95,6 +101,9 @@ const App = () => {
                         </Route>
                         <Route>
                             <Route path="/terms" element={<TermsAndCondition />}/>
+                            <Route path="/about" element={<About />}/>
+                            <Route path="/lang/:name" element={<ChangeLanguage />}/>
+
                         </Route>
                         <Route element={<AuthLayout />}>
                             <Route path="/dashboard" element={<Start />} />
@@ -103,6 +112,7 @@ const App = () => {
                             <Route path={t('URL_YOUR_SUGGESTIONS')} element={<Suggestions />} />
                             <Route path={t('URL_COMPETITION')} element={<Competition />} />
                             <Route path={t('URL_MATCH')} element={<Match />} />
+                            <Route path={t('URL_VIEW_MATCH')} element={<ViewMatch />} />
                             <Route path={t('URL_UNMATCHED')} element={<UnMatched />} />
                             <Route path={t('URL_REMATCHED')} element={<ReMatched />} />
                             <Route path={t('URL_SETTINGS')} element={<MyProfile />} />

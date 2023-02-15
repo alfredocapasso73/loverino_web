@@ -37,7 +37,10 @@ const LandingPage = () => {
                     <div className="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12"  style={{zIndex: 1}}>
                         <div className="landing-content text-center">
                             <h1>{t('PAGE_MAIN_TITLE')}</h1>
-                            <p>{t('PAGE_MAIN_SUB_TITLE')}</p>
+                            <p>
+                                {t('PAGE_MAIN_SUB_TITLE')}
+                            </p>
+                            <a target="_blank" href="/about" className="btn btn-md btn-border c-white">{t('READ_MORE')}</a>
                         </div>
                     </div>
                     <div className="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">

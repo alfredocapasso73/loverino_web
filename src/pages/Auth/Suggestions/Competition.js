@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {api_get_competition, api_get_user, api_post_competition} from "../../../services/data_provider";
@@ -8,10 +8,12 @@ import CompetitionError from "./CompetitionError";
 import UserProfile from "./UserProfile";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import {API_URLS} from "../../../services/api";
+import AppContext from "../../../components/AppContext";
 
 const Competition = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const globalContext = useContext(AppContext);
     const [finalWinner, setFinalWinner] = useState(undefined);
     const [competitionUsers, setCompetitionUsers] = useState([]);
     const [col, setCol] = useState('');
@@ -68,7 +70,9 @@ const Competition = () => {
             const match_found = response?.data?.you_got_a_match;
             if(match_found){
                 const match = await api_get_user(match_found);
-                console.log("match",match);
+                const loggedInUserDetails = globalContext.loggedInUserDetails;
+                loggedInUserDetails.current_match = match_found;
+                globalContext.loggedInUserDetails = loggedInUserDetails;
                 setMatched(true);
             }
             setCompetitionUsers([]);
@@ -188,7 +192,7 @@ const Competition = () => {
                                         {clickedUser &&
                                         <div>
                                             {clickedUser.name}, {getAge(clickedUser.birthday)}, {clickedUser.city_name}
-                                            ***{clickedUser.pictures[imagePosition]}
+
                                         </div>}
                                     </h5>
                                 </div>
@@ -212,9 +216,7 @@ const Competition = () => {
                             }
 
                             <div className="full_image_close_container" onClick={imageClose}>
-                                <svg className="close_image_svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="#798686" d="M32 4.149l-3.973-3.979-11.936 11.941-11.941-11.941-3.979 3.979 11.941 11.936-11.941 11.936 3.979 3.979 11.941-11.936 11.936 11.936 3.973-3.979-11.936-11.936z"/>
-                                </svg>
+                                <i className="fa-solid fa-circle-xmark"></i>
                             </div>
                         </div>
                     </div>

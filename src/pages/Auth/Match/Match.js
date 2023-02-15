@@ -65,15 +65,7 @@ const Match = () => {
     const confirmUnmatch = async () => {
         try{
             const response = await api_cancel_match();
-            console.log("response",response);
             socket.emit('unmatch', '');
-            //const direct_rematched = true;
-            //if(direct_rematched){
-            //    navigate(t('URL_REMATCHED'));
-            // }
-            //else{
-            //    navigate(t('URL_UNMATCHED'));
-            // }
         }
         catch(exception){
             console.log('exception:',exception);
@@ -91,6 +83,10 @@ const Match = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
         }, 100);
 
+    };
+
+    const showMatchImage = () => {
+        navigate(t('URL_VIEW_MATCH'));
     };
 
     const sendMessage = (e) => {
@@ -200,8 +196,9 @@ const Match = () => {
                     <div className="ui-block">
                         <div className="ui-block-title">
                             <div className="col col-4 text-left">
-                                <h6 className="title">
-                                    <img src={`${API_URLS.USER_GET_IMAGE.url}/tiny-picture-${myMatch.pictures[0]}`} alt="" />
+                                <h6 className="title pointer">
+                                    {myMatch.pictures.length > 0 && <img src={`${API_URLS.USER_GET_IMAGE.url}/tiny-picture-${myMatch.pictures[0]}`} alt="" onClick={showMatchImage}/>}
+                                    {myMatch.pictures.length === 0 && <span onClick={showMatchImage}><i className="fas fa-user"></i></span>}
                                 </h6>
                             </div>
                             <div className="col col-4 text-center">

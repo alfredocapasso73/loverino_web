@@ -1,13 +1,18 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
+import AppContext from "../../../components/AppContext";
 
 const UnMatched = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const globalContext = useContext(AppContext);
 
     useEffect(() => {
+        const loggedInUserDetails = globalContext.loggedInUserDetails;
+        loggedInUserDetails.current_match = '';
+        globalContext.loggedInUserDetails = loggedInUserDetails;
         console.log("UnMatched");
     }, []);
 

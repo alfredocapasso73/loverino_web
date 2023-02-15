@@ -22,8 +22,11 @@ const TermsAndCondition = () => {
                 </div>
                 <div className="container">
                     <div className="row">
-                        <div className="col col-xl-8 m-auto col-lg-10 col-md-12 col-sm-12 col-12 whole-page-in-container-light">
-                            {t('TERMS_AND_CONDITION_TEXT')}
+                        <div className="col m-auto col-12 whole-page-in-container-light">
+                            {t('COOKIE_POLICY_1')}
+                        </div>
+                        <div className="col m-auto col-12 whole-page-in-container-light">
+                            {t('COOKIE_POLICY_2')}
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ const LandingPageHeader = () => {
                             <div className="img-wrap">
                                 <img src="/img/logo.webp" alt="Monogomic" width="34" height="34" />
                                 <img src="/img/logo-colored-small.webp" width="34" height="34"
-                                     alt="Monogomic" className="logo-colored" />
+                                     alt="Loverino" className="logo-colored" />
                             </div>
                             <div className="title-block">
                                 <h6 className="logo-title">Loverino</h6>
