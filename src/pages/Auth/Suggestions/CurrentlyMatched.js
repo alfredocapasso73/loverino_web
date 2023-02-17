@@ -15,6 +15,11 @@ const CurrentlyMatched = (props) => {
                 <h4 className="title text-center">
                     <Link className="btn btn-primary btn-lg" to={t('URL_MATCH')}>{t('CLICK_TO_JOIN_MATCH')}</Link>
                 </h4>
+                <div className="text-center">
+                    <h6>
+                        Tänk på att du inte får ha flera matcher samtidigt. Därför får du inga nya förslag.
+                    </h6>
+                </div>
             </div>
         </div>
     );

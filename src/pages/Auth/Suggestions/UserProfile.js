@@ -13,7 +13,12 @@ const UserProfile = (props) => {
     }
 
     const goBack = () => {
-        navigate(props.go_back);
+        if(props.go_back){
+            return navigate(props.go_back);
+        }
+        if(props.hidePicture){
+            props.hidePicture(false);
+        }
     }
 
     useEffect(() => {
@@ -71,20 +76,15 @@ const UserProfile = (props) => {
                 <div className="inner_container">
                     <div className="row">
                         {props.it_is_a_match && <Confetti />}
-                        <div className="col col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+                        <div className="col col-8">
                             <div className="voting_picture" name={currentImage}>
                                 {
                                     <img
                                         src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${currentImage}`}
                                         alt=""
+                                        onClick={goBack}
                                         style={{width: '100%'}}
                                         className="user_profile_image"/>
-                                }
-                                {
-                                    props.go_back &&
-                                    <div className="full_image_close_container" onClick={goBack}>
-                                        <i className="fa-solid fa-circle-xmark"></i>
-                                    </div>
                                 }
                                 {
                                     props.user.pictures?.length > 1 &&
@@ -136,7 +136,7 @@ const UserProfile = (props) => {
                                 }
                             </div>
                         </div>
-                        <div className="col col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                        <div className="col col-4">
                             <h3>
                                 <b>{props.user.name}</b>
                             </h3>

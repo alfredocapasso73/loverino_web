@@ -10,8 +10,20 @@ const resources = {
     it: {translation: translation_it}
 };
 
+let browserLanguage = '';
+if (/^en\b/.test(navigator.language)) {
+    browserLanguage = 'en';
+}
+else if (/^it\b/.test(navigator.language)) {
+    browserLanguage = 'it';
+}
+else{
+    browserLanguage = 'se';
+}
+
 const white_list = ['en', 'se', 'it'];
-const default_lang = localStorage.getItem("lang") && white_list.includes(localStorage.getItem("lang")) ? localStorage.getItem("lang") : "se";
+const default_lang = white_list.includes(browserLanguage) ? browserLanguage : 'se';
+
 i18n
     .use(initReactI18next)
     .init({

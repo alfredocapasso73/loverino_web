@@ -157,6 +157,8 @@
   "MY_HEIGHT": "Min längd",
   "MY_BODY_TYPE": "Min kroppstyp",
   "DESCRIBE_YOURSELF": "Beskriv dig själv och vad du söker",
+  "NB_SELECT_WINNER": "OBS: du måste välja en profil",
+  "IF_PROFILE_LIKES_YOU_YOU_GOT_MATCH": "Om denna profil väljer dig blir ni en match",
 
   "PLEASE_SELECT_YOUR_GENDER": "Var vänlig och välj ditt kön",
   "PLEASE_SELECT_SEARCH_GENDER": "Var vänlig och välj könet du söker",
@@ -229,6 +231,7 @@
   "NO_FAVORITES_YET": "Du har ännu inte profiler som du gillat",
   "CONFIRM_REMOVE_FROM_DISLIKED": "Ta bort från ogillade",
   "CONFIRM_REMOVE_FROM_FAVORITES": "Ta bort från gillade",
+  "CONFIRM_REMOVE": "Ta bort",
   "OR": "eller",
   "CANCEL": "Avbryt",
   "YOUR_MATCH": "Din match",

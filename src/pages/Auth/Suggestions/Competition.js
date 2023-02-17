@@ -135,13 +135,14 @@ const Competition = () => {
             <LeftAuthMenu />
             <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
                 {competitionError && <CompetitionError />}
-                {finalWinner && <UserProfile it_is_a_match={matched} main_title={t('HERE_IS_THE_WINNER')} user={finalWinner} vote_user={false} />}
+                {finalWinner && <UserProfile it_is_a_match={matched} main_title={t('HERE_IS_THE_WINNER')} sub_title={t('IF_PROFILE_LIKES_YOU_YOU_GOT_MATCH')} user={finalWinner} vote_user={false} />}
                 {
                     !finalWinner && !competitionError && competitionUsers &&
                     <div className={`ui-block ${showingImagePopup ? 'd-none' : 'd-block'}`}>
                         <div className="ui-block-title">
                             <h6 className="title">
                                 {t('WHICH_IS_YOUR_FAVOURITE')}
+                                <div className="warning_text">{t('NB_SELECT_WINNER')}</div>
                             </h6>
                         </div>
                         <div className="ui-block-content">
@@ -180,47 +181,9 @@ const Competition = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 }
-                <div className={`full_image_container ${showingImagePopup ? 'd-block' : 'd-none'}`}>
-                    <div className="ui-block" style={{padding: '15px'}}>
-                        <div className="row">
-                            <div className="col col-12">
-                                <div className="ui-block-title">
-                                    <h5 className="title">
-                                        {clickedUser &&
-                                        <div>
-                                            {clickedUser.name}, {getAge(clickedUser.birthday)}, {clickedUser.city_name}
-
-                                        </div>}
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div style={{position: 'relative'}}>
-                            {
-                                clickedUser?.pictures?.length &&
-                                <img alt="" loading="lazy" src={`${API_URLS.USER_GET_IMAGE.url}/picture-${clickedUser.pictures[imagePosition]}`}  style={{width: '100%'}}/>
-                            }
-                            {
-                                clickedUser?.pictures?.length > 1 &&
-                                <div className="pic_navigator">
-                                    <div className="pic_navigator_left">
-                                        <img src="/img/icons8-chevron-left-32.png" alt="left" onClick={e => browseImages('b')}/>
-                                    </div>
-                                    <div className="pic_navigator_right">
-                                        <img src="/img/icons8-chevron-right-32.png" alt="left" onClick={e => browseImages('f')} />
-                                    </div>
-                                </div>
-                            }
-
-                            <div className="full_image_close_container" onClick={imageClose}>
-                                <i className="fa-solid fa-circle-xmark"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {showingImagePopup && <UserProfile main_title={clickedUser.name} user={clickedUser} vote_user={false} hidePicture={setShowingImagePopup}/>}
             </div>
         </div>
     );

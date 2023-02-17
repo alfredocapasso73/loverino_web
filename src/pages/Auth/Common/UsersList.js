@@ -39,17 +39,19 @@ const UsersList = (props) => {
     }
 
     const onImageClick = (usr) => {
-        const img_url = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`;
-        setCurrentImgPosition(0);
-        if(usr.pictures.length > 1){
-            setHasMultipleImages(true);
+        if(usr.pictures.length > 0){
+            const img_url = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`;
+            setCurrentImgPosition(0);
+            if(usr.pictures.length > 1){
+                setHasMultipleImages(true);
+            }
+            else{
+                setHasMultipleImages(false);
+            }
+            setCurrentUserClicked(usr);
+            setCurrentImgUrl(img_url);
+            setShowingImagePopup(true);
         }
-        else{
-            setHasMultipleImages(false);
-        }
-        setCurrentUserClicked(usr);
-        setCurrentImgUrl(img_url);
-        setShowingImagePopup(true);
     }
 
     const doVoid = () => {
@@ -64,7 +66,11 @@ const UsersList = (props) => {
     return(
         <div className="row">
             <div className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
-                <BrowseFullImage showingImagePopup={showingImagePopup} setShowingImagePopup={setShowingImagePopup} currentImgUrl={currentImgUrl} hasMultipleImages={hasMultipleImages} browseImages={browseImages}/>
+                {
+                    currentUserClicked && showingImagePopup &&
+                    <BrowseFullImage user={currentUserClicked} showingImagePopup={showingImagePopup} setShowingImagePopup={setShowingImagePopup} currentImgUrl={currentImgUrl} hasMultipleImages={hasMultipleImages} browseImages={browseImages}/>
+                }
+
                 <div className={`ui-block-content ${showingImagePopup ? 'd-none' : 'd-block'}`} style={{position: 'relative'}}>
                     <div className={`row`}>
 
@@ -82,19 +88,7 @@ const UsersList = (props) => {
                                         </div>
                                         <div style={{width: '100%', position: 'relative'}} className="text-center">
                                             <div className={`img_with_trash ${usr.restore_clicked ? 'img_with_trash_opaque' : ''}`}>
-                                                <img src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
-                                                {
-                                                    usr._id !== props?.currentMatch &&
-                                                    <div className="pointer trash_can_picture"  onClick={e => props.restore(usr, true)}>
-                                                        <i className="fa-solid fa-trash"></i>
-                                                    </div>
-                                                }
-                                                {
-                                                    usr.pictures.length > 0 &&
-                                                    <div className="pointer zooom_picture" onClick={e => onImageClick(usr)}>
-                                                        <i className="fa-solid fa-magnifying-glass"></i>
-                                                    </div>
-                                                }
+                                                <img  onClick={e => onImageClick(usr)} src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
                                             </div>
                                             {
                                                 usr.restore_clicked &&
@@ -105,6 +99,14 @@ const UsersList = (props) => {
                                                         <div onClick={e => props.restore(usr, false)} className="a_div pointer opaque_on_hover" style={{fontWeight: 'bolder'}}>{t('CANCEL')}</div>
                                                     </div>
                                                 </div>
+                                            }
+                                        </div>
+                                        <div>
+                                            {
+                                                usr._id !== props?.currentMatch &&
+                                                <button className="btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={e => props.restore(usr, true)}>
+                                                    <i className="fa-solid fa-trash" style={{color: 'black'}}></i>
+                                                </button>
                                             }
                                         </div>
                                     </div>

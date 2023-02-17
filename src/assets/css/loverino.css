@@ -228,7 +228,7 @@
 }
 .full_image_close_container{
     position: absolute;
-    right: 5px;
+    left: 5px;
     top: 5px;
     padding: 5px;
     background-color: whitesmoke;
@@ -326,4 +326,9 @@
 .read_more:hover{
     color:whitesmoke;
     text-decoration: underline;
+}
+.warning_text{
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: #be2617;
 }

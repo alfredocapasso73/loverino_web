@@ -1,14 +1,20 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+import {get_age_from_birthday} from "../../../helpers/DataCommon";
 
 const BrowseFullImage = (props) => {
+    const { t } = useTranslation();
+    const getAge = (birthday) => {
+        return get_age_from_birthday(birthday);
+    }
     return(
         <div className="row">
-            <div className="col col-12">
-                <div className={`full_image_container ${props.showingImagePopup ? 'd-block' : 'd-none'}`} style={{backgroundPosition: 'center', width: '98%'}}>
+            <div className="col col-8">
+                <div className={`full_image_containers ${props.showingImagePopup ? 'd-block' : 'd-none'}`} style={{backgroundPosition: 'center', width: '98%'}}>
                     <div className="ui-block">
                         <div style={{position: 'relative'}}>
                             {
-                                props.currentImgUrl && <img alt="" loading="lazy" src={props.currentImgUrl}  style={{width: '100%'}}/>
+                                props.currentImgUrl && <img alt="" loading="lazy" className="pointer" src={props.currentImgUrl}  style={{width: '100%'}}  onClick={e => props.setShowingImagePopup(false)}/>
                             }
                             {
                                 props.hasMultipleImages &&
@@ -21,12 +27,31 @@ const BrowseFullImage = (props) => {
                                     </div>
                                 </div>
                             }
-                            <div className="full_image_close_container" onClick={e => props.setShowingImagePopup(false)}>
-                                <i className="fa-solid fa-circle-xmark"></i>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="col col-4">
+                <h3>
+                    <b>{props.user.name}</b>
+                </h3>
+                <h6>
+                    {getAge(props.user.birthday)} {t('YEARS_OLD')}
+                </h6>
+                <h6>
+                    {props.user.city_name}
+                </h6>
+                <h6>
+                    {props.user.height} {t('CM_TALL')}
+                </h6>
+                <h6>
+                    {t(props.user.body_type)}
+                </h6>
+                {props.user.description &&
+                    <p>
+                        {props.user.description}???
+                    </p>
+                }
             </div>
         </div>
 

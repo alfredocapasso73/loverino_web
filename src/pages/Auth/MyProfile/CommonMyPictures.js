@@ -17,15 +17,20 @@ const CommonMyPictures = (props) => {
     const [showingImagePopup, setShowingImagePopup] = useState(false);
     const [currentImgUrl, setCurrentImgUrl] = useState('');
     const [currentPictureToRemove, setCurrentPictureToRemove] = useState('');
+    const [showingRemovePicture, setShowingRemovePicture] = useState(false);
 
     const imageClose = () => {
         setShowingImagePopup(false);
     }
 
     const onImageClick = (url) => {
-        console.log('url:',url);
-        setCurrentImgUrl(url);
-        setShowingImagePopup(true);
+        if(!showingRemovePicture){
+            console.log('url:',url);
+            const rewritten = url.replace('small-', 'big-');
+            console.log('rewritten:',rewritten);
+            setCurrentImgUrl(rewritten);
+            setShowingImagePopup(true);
+        }
     }
 
     const doneStep3 = async () => {
@@ -33,6 +38,7 @@ const CommonMyPictures = (props) => {
     }
 
     const removePicture = async (id) => {
+        setShowingRemovePicture(true);
         const imgs = images;
         imgs.find(el => el.id === id).confirm_delete = 'y';
         setImages([...imgs]);
@@ -101,6 +107,7 @@ const CommonMyPictures = (props) => {
                 setImageDeletedFailure(true);
             }
             await getImages();
+            setShowingRemovePicture(false);
             setTimeout(function(){
                 window.location.reload()
             }, 2000);
@@ -115,6 +122,7 @@ const CommonMyPictures = (props) => {
         pics.find(el => el.id === currentPictureToRemove).confirm_delete = 'n';
         setImages([...pics]);
         setCurrentPictureToRemove('');
+        setShowingRemovePicture(false);
     }
 
     const uploadFile = (e) => {
@@ -137,26 +145,29 @@ const CommonMyPictures = (props) => {
                         <div className="row">
                             {
                                 images && images.map((img, index) =>
-                                    <div key={index} className="col col-xl-3 col-lg-3  col-md-6  col-sm-6">
+                                    <div key={index} className="col col-3">
                                         <div style={{width: '100%', position: 'relative'}} className="text-center">
-                                            <div className="img_with_trash">
+                                            <div className="img_with_trash"  onClick={e => onImageClick(img.url)}>
                                                 <img src={img.url} alt="" className="user_profile_image" />
                                                 {
                                                     img.confirm_delete === 'y' &&
                                                     <div className="container_confirm_remove_picture">
                                                         <div style={{paddingTop: '30%'}}>
                                                             <div onClick={confirmRemovePicture} className="a_div pointer" style={{fontWeight: 'bolder'}}>{t('CONFIRM_REMOVE')}</div>
-                                                            <div className="a_div" style={{fontWeight: 'bolder'}}>{t('OR')}</div>
+                                                            <div className="a_div" style={{fontWeight: 'plain'}}>{t('OR')}</div>
                                                             <div onClick={cancelRemovePicture} className="a_div pointer" style={{fontWeight: 'bolder'}}>{t('CANCEL')}</div>
                                                         </div>
                                                     </div>
                                                 }
-                                                <div className="pointer trash_can_picture"  onClick={e => removePicture(img.id)}>
-                                                    <i className="fa-solid fa-trash"></i>
-                                                </div>
-                                                <div className="pointer zooom_picture" onClick={e => onImageClick(img.url)}>
-                                                    <i className="fa-solid fa-magnifying-glass"></i>
-                                                </div>
+                                            </div>
+                                            <div style={{paddingBottom: '20px'}}>
+                                                {
+                                                    img.confirm_delete !== 'y' &&
+                                                    <button className="btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={e => removePicture(img.id)}>
+                                                        <i className="fa fa-trash" aria-hidden="true" style={{color: 'black'}}></i>
+                                                    </button>
+                                                }
+
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +177,7 @@ const CommonMyPictures = (props) => {
                         <div className="row">
                             <div className="col col-lg-12 col-md-12  col-sm-12 text-center">
                                 {
-                                    !isUploading &&
+                                    !isUploading && !showingImagePopup &&
                                     <div>
                                         <input
                                             accept="image/png, image/jpeg, image/gif"
