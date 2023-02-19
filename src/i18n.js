@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translation_en from  "./locales/en/translation.json";
+import translation_en from  "./locales/en/language.json";
 import translation_se from  "./locales/se/language.json";
 import translation_it from  "./locales/it/language.json";
 
@@ -23,6 +23,7 @@ else{
 
 const white_list = ['en', 'se', 'it'];
 const default_lang = white_list.includes(browserLanguage) ? browserLanguage : 'se';
+//const default_lang = 'it';
 
 i18n
     .use(initReactI18next)

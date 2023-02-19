@@ -1,7 +1,6 @@
 {
   "PAGE_MAIN_TITLE": "Loverino. För dig som vill hitta rätt partner. På riktigt.",
   "PAGE_MAIN_SUB_TITLE": "Har du tröttnat på att samla på matcher? Vill du verkligen hitta \"the one\"? Då är Loverino rätt tjänst för dig.",
-  "LOGO_SUB_TITLE": "Smart Dejting",
   "INDEX_FORM_CREATE_ACCOUNT": "Skapa ditt konto här",
   "INDEX_FORM_NAME": "Namn",
   "INDEX_FORM_EMAIL": "E-post",
@@ -115,8 +114,6 @@
   "NOTIFICATION_NEW_MATCH": "Notifieringar vid ny match",
   "NOTIFICATION_NEW_MATCH_TEXT": "Skickar ett mail när det finns en ny match",
   "ACCOUNT": "Konto",
-
-
 
   "MY_GENDER": "Mitt kön",
   "I_AM": "Jag är",
@@ -239,14 +236,8 @@
   "ABOUT_LOVERINO_COPY_1": "Loverino är en dejtingtjänst som utformats på ett litet annorlunda sätt. Till skillnad från andra liknande tjänster är det till exempel inte möjligt att 'matcha' med fler än 1 person.",
   "ABOUT_LOVERINO_COPY_2": "Loverino vänder sig primärt till personer som vill hitta en partner för livet. För så som tjänsten är utformad och då det saknas konceptet med att ha flera pågående matcher, så skulle det inte riktigt löna sig att använda denna tjänst för skojs skull.",
   "ABOUT_LOVERINO_COPY_3": "Vill man hitta en person för kvällen eller bara ha ytliga relationer får man då lov att använda andra tjänster. Här hos Loverino ä det tänkt att man ska lära känna den andra person på ett djupare plan.",
-
   "COOKIE_POLICY_1": "Vi vill att du som användare ska känna förtroende för oss. Loverino ser därför till att skydda din personliga integritet. En viktig del av detta är att ge dig som användare så mycket information som möjligt om hur vi använder dina personuppgifter. ",
   "COOKIE_POLICY_2": "Loverino lagrar data av dig som användare i en cookie i webbläsare för att kunna ge dig bästa möjliga upplevelse. Datat delas inte med andra aktörer och används enbart för att se till att ditt besök ska upplevas optimalt, såsom till exempel för att kunna låta dig loggas in per automatik. Inget känsligt data sparas i cookie dock.",
-
-
-
-
-
 
   "xs": "Mycket smal",
   "s": "Smal",
@@ -258,9 +249,6 @@
   "LINK_SUGGESTION": "Förslag",
   "LINK_FAVORITES": "Favoriter",
   "LINK_REFUSED": "Borttagna",
-
-
-
 
   "URL_ACCOUNT_CREATED": "/ditt-konto-har-skapats",
   "URL_AUTH_START_PAGE": "/dashboard",

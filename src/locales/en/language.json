@@ -1,7 +1,6 @@
 {
   "PAGE_MAIN_TITLE": "Loverino. För dig som vill hitta rätt partner. På riktigt.",
   "PAGE_MAIN_SUB_TITLE": "Har du tröttnat på att samla på matcher? Vill du verkligen hitta \"the one\"? Då är Loverino rätt tjänst för dig.",
-  "LOGO_SUB_TITLE": "Smart Dejting",
   "INDEX_FORM_CREATE_ACCOUNT": "Skapa ditt konto här",
   "INDEX_FORM_NAME": "Namn",
   "INDEX_FORM_EMAIL": "E-post",
@@ -116,8 +115,6 @@
   "NOTIFICATION_NEW_MATCH_TEXT": "Skickar ett mail när det finns en ny match",
   "ACCOUNT": "Konto",
 
-
-
   "MY_GENDER": "Mitt kön",
   "I_AM": "Jag är",
   "MALE": "Man",
@@ -157,6 +154,8 @@
   "MY_HEIGHT": "Min längd",
   "MY_BODY_TYPE": "Min kroppstyp",
   "DESCRIBE_YOURSELF": "Beskriv dig själv och vad du söker",
+  "NB_SELECT_WINNER": "OBS: du måste välja en profil",
+  "IF_PROFILE_LIKES_YOU_YOU_GOT_MATCH": "Om denna profil väljer dig blir ni en match",
 
   "PLEASE_SELECT_YOUR_GENDER": "Var vänlig och välj ditt kön",
   "PLEASE_SELECT_SEARCH_GENDER": "Var vänlig och välj könet du söker",
@@ -223,10 +222,22 @@
   "REFUSED": "Profiler jag tackat nej till",
   "IT_WAS_A_MATCH": "Du har matchats!",
   "YOUR_CURRENT_EMAIL": "Din nuvarande e-post adress:",
-
-
-
-
+  "NO_SUGGESTIONS_FOR_YOU_AT_ALL": "Inga förslag för tillfället. ",
+  "DONT_GIVE_UP_COME_BACK_LATER": "Men ge inte upp! Återkom igen om en stund.",
+  "NO_REFUSED_YET": "Du har ännu inte profiler som du ogillat",
+  "NO_FAVORITES_YET": "Du har ännu inte profiler som du gillat",
+  "CONFIRM_REMOVE_FROM_DISLIKED": "Ta bort från ogillade",
+  "CONFIRM_REMOVE_FROM_FAVORITES": "Ta bort från gillade",
+  "CONFIRM_REMOVE": "Ta bort",
+  "OR": "eller",
+  "CANCEL": "Avbryt",
+  "YOUR_MATCH": "Din match",
+  "ABOUT_LOVERINO": "Om Loverino",
+  "ABOUT_LOVERINO_COPY_1": "Loverino är en dejtingtjänst som utformats på ett litet annorlunda sätt. Till skillnad från andra liknande tjänster är det till exempel inte möjligt att 'matcha' med fler än 1 person.",
+  "ABOUT_LOVERINO_COPY_2": "Loverino vänder sig primärt till personer som vill hitta en partner för livet. För så som tjänsten är utformad och då det saknas konceptet med att ha flera pågående matcher, så skulle det inte riktigt löna sig att använda denna tjänst för skojs skull.",
+  "ABOUT_LOVERINO_COPY_3": "Vill man hitta en person för kvällen eller bara ha ytliga relationer får man då lov att använda andra tjänster. Här hos Loverino ä det tänkt att man ska lära känna den andra person på ett djupare plan.",
+  "COOKIE_POLICY_1": "Vi vill att du som användare ska känna förtroende för oss. Loverino ser därför till att skydda din personliga integritet. En viktig del av detta är att ge dig som användare så mycket information som möjligt om hur vi använder dina personuppgifter. ",
+  "COOKIE_POLICY_2": "Loverino lagrar data av dig som användare i en cookie i webbläsare för att kunna ge dig bästa möjliga upplevelse. Datat delas inte med andra aktörer och används enbart för att se till att ditt besök ska upplevas optimalt, såsom till exempel för att kunna låta dig loggas in per automatik. Inget känsligt data sparas i cookie dock.",
 
   "xs": "Mycket smal",
   "s": "Smal",
@@ -238,9 +249,6 @@
   "LINK_SUGGESTION": "Förslag",
   "LINK_FAVORITES": "Favoriter",
   "LINK_REFUSED": "Borttagna",
-
-
-
 
   "URL_ACCOUNT_CREATED": "/ditt-konto-har-skapats",
   "URL_AUTH_START_PAGE": "/dashboard",
@@ -264,6 +272,7 @@
   "URL_MY_PICTURES": "/mina-bilder",
   "URL_NOTIFICATION": "/mina-notifieringar",
   "URL_MATCH": "/match",
+  "URL_VIEW_MATCH": "/min-match",
   "URL_UNMATCHED": "/unmatched",
   "URL_REMATCHED": "/rematched",
   "URL_FAVORITES": "/favoriter",
