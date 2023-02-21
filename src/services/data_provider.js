@@ -343,6 +343,31 @@ export async function api_get_image(user_id, image){
     }
 }
 
+export async function image_upload_picture(file){
+    try{
+        const formData = new FormData();
+        formData.append('picture', file);
+        const header = {
+            method: "POST"
+            ,headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: formData
+        };
+        console.log('header',header);
+        const url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/uploadPicture`;
+        console.log('url',url);
+        const response = await fetch(`${url}`, header);
+        console.log('response',response);
+        const data = await response.json();
+        return {status: response.status, data: data};
+    }
+    catch(exception){
+        console.log('exceptione',exception);
+        throw exception;
+    }
+}
+
 export async function api_upload_picture(file){
     try{
         const formData = new FormData();
@@ -463,6 +488,18 @@ export async function api_get_cities(region_id){
         API_URLS.GEO_GET_CITIES.url = new_url;
         const request = await make_request(API_URLS.GEO_GET_CITIES);
         return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function img_test(){
+    try{
+        const response = await fetch(`http://localhost:8080/api/v1/doit`);
+        const data = await response.json();
+        console.log("data",data);
     }
     catch(exception){
         console.log('exception',exception);

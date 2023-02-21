@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import {api_delete_image, api_get_me, api_upload_picture} from "../../../services/data_provider";
+import {api_delete_image, api_get_me, api_upload_picture, image_upload_picture} from "../../../services/data_provider";
 import {API_URLS} from "../../../services/api";
 import {useNavigate} from "react-router-dom";
 import FullImage from "../Common/FullImage";
@@ -49,7 +49,8 @@ const CommonMyPictures = (props) => {
         try{
             const response = await api_get_me();
             const pictures = response?.data?.user?.pictures;
-            const base_path_image = `${API_URLS.USER_GET_IMAGE.url}/small-picture-`;
+            //const base_path_image = `${API_URLS.USER_GET_IMAGE.url}/small-picture-`;
+            const base_path_image = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-`;
             if(pictures && pictures.length){
                 const all_images = [];
                 pictures.forEach(el => {
@@ -75,7 +76,8 @@ const CommonMyPictures = (props) => {
         setIsUploading(true);
         try{
             for await(const picture of files){
-                const result = await api_upload_picture(picture);
+                //const result = await api_upload_picture(picture);
+                const result = await image_upload_picture(picture);
             }
             const response = await api_get_me();
 
