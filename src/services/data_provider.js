@@ -354,11 +354,8 @@ export async function image_upload_picture(file){
             },
             body: formData
         };
-        console.log('header',header);
         const url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/uploadPicture`;
-        console.log('url',url);
         const response = await fetch(`${url}`, header);
-        console.log('response',response);
         const data = await response.json();
         return {status: response.status, data: data};
     }
