@@ -50,7 +50,7 @@ const AuthLayout = () => {
 
     const setAvatarData = (user) => {
         if(user?.pictures?.length){
-            const avatar_image = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${user.pictures[0]}`;
+            const avatar_image = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${user.pictures[0]}`;
             globalContext.loggedInUserDetails.avatar = avatar_image;
             setAvatar(avatar_image);
         }

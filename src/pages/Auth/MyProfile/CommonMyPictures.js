@@ -1,13 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import {api_delete_image, api_get_me, api_upload_picture, image_upload_picture} from "../../../services/data_provider";
-import {API_URLS} from "../../../services/api";
-import {useNavigate} from "react-router-dom";
+import {image_service_delete_image, api_get_me, image_upload_picture} from "../../../services/data_provider";
 import FullImage from "../Common/FullImage";
 
 const CommonMyPictures = (props) => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const uploadRef = useRef(null);
     const [fileUploadFailed, setFileUploadFailed] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
@@ -34,7 +31,7 @@ const CommonMyPictures = (props) => {
     }
 
     const doneStep3 = async () => {
-        navigate(t('URL_YOUR_SUGGESTIONS'));
+        window.location.href = t('URL_YOUR_SUGGESTIONS');
     }
 
     const removePicture = async (id) => {
@@ -101,7 +98,7 @@ const CommonMyPictures = (props) => {
 
     const confirmRemovePicture = async () => {
         try{
-            const response = await api_delete_image(currentPictureToRemove);
+            const response = await image_service_delete_image(currentPictureToRemove);
             if(response.status === 200){
                 setImageDeletedSuccess(true);
             }
@@ -110,9 +107,9 @@ const CommonMyPictures = (props) => {
             }
             await getImages();
             setShowingRemovePicture(false);
-            setTimeout(function(){
+            /*setTimeout(function(){
                 window.location.reload()
-            }, 2000);
+            }, 2000);*/
         }
         catch(exception){
             console.log("exception",exception);
@@ -169,7 +166,6 @@ const CommonMyPictures = (props) => {
                                                         <i className="fa fa-trash" aria-hidden="true" style={{color: 'black'}}></i>
                                                     </button>
                                                 }
-
                                             </div>
                                         </div>
                                     </div>

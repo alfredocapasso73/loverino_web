@@ -34,13 +34,13 @@ const UsersList = (props) => {
                 setCurrentImgPosition(new_position);
             }
         }
-        const img_url = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${currentUserClicked.pictures[new_position]}`;
+        const img_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${currentUserClicked.pictures[new_position]}`;
         setCurrentImgUrl(img_url);
     }
 
     const onImageClick = (usr) => {
         if(usr.pictures.length > 0){
-            const img_url = `${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`;
+            const img_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${usr.pictures[0]}`;
             setCurrentImgPosition(0);
             if(usr.pictures.length > 1){
                 setHasMultipleImages(true);
@@ -88,7 +88,7 @@ const UsersList = (props) => {
                                         </div>
                                         <div style={{width: '100%', position: 'relative'}} className="text-center">
                                             <div className={`img_with_trash ${usr.restore_clicked ? 'img_with_trash_opaque' : ''}`}>
-                                                <img  onClick={e => onImageClick(usr)} src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
+                                                <img  onClick={e => onImageClick(usr)} src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
                                             </div>
                                             {
                                                 usr.restore_clicked &&

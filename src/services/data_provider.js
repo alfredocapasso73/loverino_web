@@ -1,4 +1,4 @@
-import {make_request, API_URLS, geo_prefix, user_prefix, make_image_request} from './api';
+import {make_request, API_URLS, geo_prefix, user_prefix} from './api';
 
 
 export async function api_validate_token(token){
@@ -11,51 +11,6 @@ export async function api_validate_token(token){
         }
         else{
             localStorage.removeItem("token");
-        }
-        return result;
-    }
-    catch(exception){
-        console.log('exception:',exception);
-        return result;
-    }
-}
-
-export async function api_fake_login(){
-    const result = {success: false};
-    try{
-        const body = {
-            email: 'alfredo@amaranto.se'
-            ,password: "monogomic"
-        }
-        const request = await make_request(API_URLS.USER_SIGNIN, body);
-        result.data = request.data;
-        if(request.status === 200){
-            result.success = true;
-        }
-        return result;
-    }
-    catch(exception){
-        console.log('exception:',exception);
-        return result;
-    }
-}
-
-export async function api_call(resource, form_inputs){
-    const url_key = API_URLS[resource];
-    const data = {};
-    const result = {success: false};
-    form_inputs.map(el => {
-        if(el.input_type === 'input'){
-            data[el.name] = el.ref.current.value;
-        }
-        return false;
-    });
-    try{
-        const request = await make_request(url_key, data);
-        result.data = request.data;
-        if(request.status === 200){
-            result.success = true;
-            return result;
         }
         return result;
     }
@@ -318,78 +273,6 @@ export async function api_step_2(body){
     }
 }
 
-export async function api_delete_image(picture_id){
-    try{
-        const body = {picture_id: picture_id};
-        const request = await make_request(API_URLS.USER_DELETE_PICTURE, body);
-        return request;
-    }
-    catch(exception){
-        console.log('exception',exception);
-        throw exception;
-    }
-}
-
-export async function api_get_image(user_id, image){
-    try{
-        API_URLS.USER_GET_IMAGE.url = `${API_URLS.USER_GET_IMAGE.url}/${user_id}/${image}`;
-        const request = await make_image_request(API_URLS.USER_GET_IMAGE);
-        console.log("request",request);
-        return request.url;
-    }
-    catch(exception){
-        console.log('exception',exception);
-        throw exception;
-    }
-}
-
-export async function image_upload_picture(file){
-    try{
-        const formData = new FormData();
-        formData.append('picture', file);
-        const header = {
-            method: "POST"
-            ,headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: formData
-        };
-        const url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/uploadPicture`;
-        const response = await fetch(`${url}`, header);
-        const data = await response.json();
-        return {status: response.status, data: data};
-    }
-    catch(exception){
-        console.log('exceptione',exception);
-        throw exception;
-    }
-}
-
-export async function api_upload_picture(file){
-    try{
-        const formData = new FormData();
-        formData.append('picture', file);
-        const header = {
-            method: "POST"
-            ,headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: formData
-        };
-        console.log('header',header);
-        const url = API_URLS.USER_UPLOAD_PICTURE.url;
-        console.log('url',url);
-        const response = await fetch(`${url}`, header);
-        console.log('response',response);
-        const data = await response.json();
-        return {status: response.status, data: data};
-    }
-    catch(exception){
-        console.log('exceptione',exception);
-        throw exception;
-    }
-}
-
 export async function api_forgot_password(body){
     try{
         const request = await make_request(API_URLS.USER_FORGOT_PASSWORD, body);
@@ -492,14 +375,46 @@ export async function api_get_cities(region_id){
     }
 }
 
-export async function img_test(){
+export async function image_service_delete_image(picture_id){
     try{
-        const response = await fetch(`http://localhost:8080/api/v1/doit`);
+        const body = {picture_id: picture_id};
+        const header = {
+            method: "DELETE"
+            ,headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(body)
+        };
+        const url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/deletePicture`;
+        const response = await fetch(`${url}`, header);
         const data = await response.json();
-        console.log("data",data);
+        return {status: response.status, data: data};
     }
     catch(exception){
         console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function image_upload_picture(file){
+    try{
+        const formData = new FormData();
+        formData.append('picture', file);
+        const header = {
+            method: "POST"
+            ,headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: formData
+        };
+        const url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/uploadPicture`;
+        const response = await fetch(`${url}`, header);
+        const data = await response.json();
+        return {status: response.status, data: data};
+    }
+    catch(exception){
+        console.log('exceptione',exception);
         throw exception;
     }
 }

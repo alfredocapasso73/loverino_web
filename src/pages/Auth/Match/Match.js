@@ -197,7 +197,7 @@ const Match = () => {
                         <div className="ui-block-title">
                             <div className="col col-4 text-left">
                                 <h6 className="title pointer">
-                                    {myMatch.pictures.length > 0 && <img src={`${API_URLS.USER_GET_IMAGE.url}/tiny-picture-${myMatch.pictures[0]}`} alt="" onClick={showMatchImage}/>}
+                                    {myMatch.pictures.length > 0 && <img src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/tiny-picture-${myMatch.pictures[0]}`} alt="" onClick={showMatchImage}/>}
                                     {myMatch.pictures.length === 0 && <span onClick={showMatchImage}><i className="fas fa-user"></i></span>}
                                 </h6>
                             </div>

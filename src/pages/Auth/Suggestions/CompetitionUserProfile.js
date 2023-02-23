@@ -29,7 +29,7 @@ const CompetitionUserProfile = (props) => {
                     {props.user.city_name.name}
                 </p>
                 <div style={{position: 'relative', width: '90%'}}>
-                    <img src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${props.user.pictures[0]}`} alt="" style={{width: '100%'}} onClick={imageClicked} className="user_profile_image"/>
+                    <img src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${props.user.pictures[0]}`} alt="" style={{width: '100%'}} onClick={imageClicked} className="user_profile_image"/>
                     <div>
                         <div className="competition_heart only_desktop" onClick={e => props.user_func(props.user._id)}>
                             <svg width="60px" height="60px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" className="svg_voting_symbol svg_voting_symbol_yes" >

@@ -80,7 +80,7 @@ const UserProfile = (props) => {
                             <div className="voting_picture" name={currentImage}>
                                 {
                                     <img
-                                        src={`${API_URLS.USER_GET_IMAGE.url}/small-picture-${currentImage}`}
+                                        src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${currentImage}`}
                                         alt=""
                                         onClick={goBack}
                                         style={{width: '100%'}}
