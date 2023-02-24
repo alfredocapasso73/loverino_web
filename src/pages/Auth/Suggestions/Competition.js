@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 import CompetitionUserProfile from "./CompetitionUserProfile";
 import CompetitionError from "./CompetitionError";
 import UserProfile from "./UserProfile";
-import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import AppContext from "../../../components/AppContext";
 
 const Competition = () => {
@@ -24,25 +23,9 @@ const Competition = () => {
     const [clickedUser, setClickedUser] = useState();
     const [matched, setMatched] = useState(false);
 
-    const [imagePosition, setImagePosition] = useState(0);
-
-    const browseImages = (direction) => {
-        if(direction === 'b'){
-            const new_position = imagePosition === 0 ? (clickedUser.pictures.length-1) : imagePosition-1;
-            console.log("new_position",new_position);
-            setImagePosition(new_position);
-        }
-        else{
-            const new_position = imagePosition < (clickedUser.pictures.length-1) ? imagePosition+1 : 0;
-            console.log("new_position",new_position);
-            setImagePosition(new_position);
-        }
-    }
-
     const onImageClick = (user) => {
         setClickedUser(user);
         setShowingImagePopup(true);
-        setImagePosition(0);
     }
 
     const winnerChosen = async () => {
@@ -90,7 +73,7 @@ const Competition = () => {
     }
 
     useEffect(() => {
-
+        console.log('ammazza ao');
         const getCurrentCompetition = async () => {
             try{
                 const competition = await api_get_competition();

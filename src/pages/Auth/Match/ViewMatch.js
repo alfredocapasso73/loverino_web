@@ -30,7 +30,7 @@ const ViewMatch = () => {
         }
         fetchMatch().catch(console.log);
 
-    }, []);
+    }, [navigate, t]);
 
     return(
         <div className="row">

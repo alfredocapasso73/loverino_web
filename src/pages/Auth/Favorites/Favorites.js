@@ -18,6 +18,7 @@ const Favorites = () => {
 
     useEffect(() => {
         fetchFavoriteUsers().catch(console.log);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     const fetchFavoriteUsers = async () => {
@@ -77,7 +78,7 @@ const Favorites = () => {
     useEffect(() => {
         fetchMe().catch(console.log);
         fetchFavoriteUsers().catch(console.log);
-        console.log("Favorites");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

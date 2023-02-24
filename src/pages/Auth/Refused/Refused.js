@@ -13,6 +13,7 @@ const Refused = () => {
 
     useEffect(() => {
         fetchRefusedUsers().catch(console.log);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     const fetchRefusedUsers = async () => {
@@ -59,9 +60,10 @@ const Refused = () => {
             ));
     }
 
+
     useEffect(() => {
         fetchRefusedUsers().catch(console.log);
-        console.log("Refused");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

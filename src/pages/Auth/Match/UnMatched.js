@@ -13,7 +13,7 @@ const UnMatched = () => {
         const loggedInUserDetails = globalContext.loggedInUserDetails;
         loggedInUserDetails.current_match = '';
         globalContext.loggedInUserDetails = loggedInUserDetails;
-        console.log("UnMatched");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

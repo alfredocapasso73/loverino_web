@@ -65,7 +65,7 @@ const Restore = () => {
             setRestoreApiCalled(true);
             restorePassword().catch(console.error);
         }
-    }, []);
+    }, [restoreApiCalled, user_id, restore_string, navigate, t]);
 
     const unusedClick = () => {}
 

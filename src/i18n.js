@@ -11,19 +11,24 @@ const resources = {
 };
 
 let browserLanguage = '';
-if (/^en\b/.test(navigator.language)) {
-    browserLanguage = 'en';
-}
-else if (/^it\b/.test(navigator.language)) {
-    browserLanguage = 'it';
+if(localStorage.getItem("lang")){
+    browserLanguage = localStorage.getItem("lang");
 }
 else{
-    browserLanguage = 'se';
+    if (/^en\b/.test(navigator.language)) {
+        browserLanguage = 'en';
+    }
+    else if (/^it\b/.test(navigator.language)) {
+        browserLanguage = 'it';
+    }
+    else{
+        browserLanguage = 'se';
+    }
 }
+
 
 const white_list = ['en', 'se', 'it'];
 const default_lang = white_list.includes(browserLanguage) ? browserLanguage : 'se';
-//const default_lang = 'it';
 
 i18n
     .use(initReactI18next)

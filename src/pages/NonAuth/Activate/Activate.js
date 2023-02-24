@@ -29,7 +29,7 @@ const Activate = () => {
             setActivatedApiCalled(true);
             activateAccount().catch(console.error);
         }
-    }, []);
+    }, [activatedApiCalled,activation_string,navigate,t,user_id]);
 
     return(
         <div>
