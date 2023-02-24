@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {useNavigate} from "react-router-dom";
 import UserProfile from "../Suggestions/UserProfile";
-import {api_cancel_match, api_get_me, api_get_user} from "../../../services/data_provider";
+import {api_get_me, api_get_user} from "../../../services/data_provider";
 
 const ViewMatch = () => {
     const { t } = useTranslation();

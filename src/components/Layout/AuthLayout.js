@@ -13,7 +13,6 @@ import {
     get_open_right_menu_svg_icon,
     get_close_right_menu_svg_icon
 } from "../../assets/Svg/Svg";
-import {API_URLS} from "../../services/api";
 import AppContext from "../AppContext";
 
 const AuthLayout = () => {

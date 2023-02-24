@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { useTranslation } from 'react-i18next';
-import {API_URLS} from "../../../services/api";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import BrowseFullImage from "./BrowseFullImage";
 

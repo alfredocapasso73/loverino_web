@@ -41,7 +41,7 @@ const Suggestions = () => {
                         setWinner(response.data.winner);
                         const match_found = response?.data?.you_got_a_match;
                         if(match_found){
-                            const match = await api_get_user(match_found);
+                            await api_get_user(match_found);
                             const loggedInUserDetails = globalContext.loggedInUserDetails;
                             loggedInUserDetails.current_match = match_found;
                             globalContext.loggedInUserDetails = loggedInUserDetails;

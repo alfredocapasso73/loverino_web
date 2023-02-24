@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 import {api_get_me, api_get_user, api_get_messages, api_cancel_match, api_get_message_history, api_read_messages} from "../../../services/data_provider";
 import MatchError from "./MatchError";
 import NoCurrentMatch from "./NoCurrentMatch";
-import {API_URLS} from "../../../services/api";
 import {get_more_svg_icon} from '../../../assets/Svg/Svg';
 import {io} from "socket.io-client";
 
@@ -64,7 +63,7 @@ const Match = () => {
 
     const confirmUnmatch = async () => {
         try{
-            const response = await api_cancel_match();
+            await api_cancel_match();
             socket.emit('unmatch', '');
         }
         catch(exception){

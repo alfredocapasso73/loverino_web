@@ -7,7 +7,6 @@ import CompetitionUserProfile from "./CompetitionUserProfile";
 import CompetitionError from "./CompetitionError";
 import UserProfile from "./UserProfile";
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
-import {API_URLS} from "../../../services/api";
 import AppContext from "../../../components/AppContext";
 
 const Competition = () => {
@@ -38,15 +37,6 @@ const Competition = () => {
             console.log("new_position",new_position);
             setImagePosition(new_position);
         }
-
-    }
-
-    const getAge = (birthday) => {
-        return get_age_from_birthday(birthday);
-    }
-
-    const imageClose = () => {
-        setShowingImagePopup(false);
     }
 
     const onImageClick = (user) => {
@@ -69,7 +59,7 @@ const Competition = () => {
             }
             const match_found = response?.data?.you_got_a_match;
             if(match_found){
-                const match = await api_get_user(match_found);
+                await api_get_user(match_found);
                 const loggedInUserDetails = globalContext.loggedInUserDetails;
                 loggedInUserDetails.current_match = match_found;
                 globalContext.loggedInUserDetails = loggedInUserDetails;

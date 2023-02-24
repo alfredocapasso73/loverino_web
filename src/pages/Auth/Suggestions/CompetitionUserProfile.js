@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
-import {API_URLS} from "../../../services/api";
+
 const getAge = (birthday) => {
     return get_age_from_birthday(birthday);
 }

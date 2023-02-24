@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
-import {API_URLS} from "../../../services/api";
 import Confetti from 'react-confetti';
 import {Link,useNavigate} from "react-router-dom";
 

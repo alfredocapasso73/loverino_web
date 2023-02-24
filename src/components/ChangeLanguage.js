@@ -1,10 +1,8 @@
 import React, {useEffect} from "react";
-import { useTranslation } from 'react-i18next';
 import PagePreloader from "./Layout/PagePreloader";
 import {useNavigate, useParams} from "react-router-dom";
 
 const ChangeLanguage = () => {
-    const { t } = useTranslation();
     let { name } = useParams();
     const navigate = useNavigate();
 

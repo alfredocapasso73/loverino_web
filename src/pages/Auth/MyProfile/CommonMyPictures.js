@@ -73,8 +73,7 @@ const CommonMyPictures = (props) => {
         setIsUploading(true);
         try{
             for await(const picture of files){
-                //const result = await api_upload_picture(picture);
-                const result = await image_upload_picture(picture);
+                await image_upload_picture(picture);
             }
             const response = await api_get_me();
 
