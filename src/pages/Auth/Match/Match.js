@@ -144,7 +144,7 @@ const Match = () => {
                 await readMessages();
 
                 const access_token = localStorage.getItem("token");
-                const sck = io('http://localhost:8082', {
+                const sck = io(process.env.REACT_APP_CHAT_BASE, {
                     path: "/socket.io",
                     autoConnect: true,
                     extraHeaders: {
