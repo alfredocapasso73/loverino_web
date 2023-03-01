@@ -24,7 +24,7 @@ const LeftAuthMenu = (props) => {
     }
 
     useEffect(() => {
-        if(globalContext?.loggedInUserDetails?.current_match){
+        if(globalContext?.loggedInUserDetails?.current_match && props.caller !== 'match'){
             // eslint-disable-next-line react-hooks/exhaustive-deps
             interval_id = setInterval(function(){
                 fetchUnreadMessages().catch(console.log);

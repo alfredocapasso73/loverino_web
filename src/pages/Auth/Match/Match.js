@@ -161,6 +161,7 @@ const Match = () => {
                 console.log('sck:',sck);
 
                 sck.on('private', function(msg) {
+                    console.log("messaggio privato",msg);
                     const message_object = {from: 'user', data: msg};
                     setChatMessages(curr => [...curr, message_object]);
                     scrollToBottom();
@@ -190,7 +191,7 @@ const Match = () => {
 
     return(
         <div className="row">
-            <LeftAuthMenu />
+            <LeftAuthMenu caller="match"/>
             <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
                 {noCurrentMatches && <NoCurrentMatch />}
                 {errored && <MatchError error_message={t('SOMETHING_WENT_WRONG')}/>}
