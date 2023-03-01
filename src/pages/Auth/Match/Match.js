@@ -144,15 +144,19 @@ const Match = () => {
                 await readMessages();
 
                 const access_token = localStorage.getItem("token");
+                const extra_headers = {
+                    access_token: access_token,
+                    room: response.data.user.room,
+                    user_id: response.data.user._id,
+                    tkn: access_token,
+                    name: response.data.user.name
+                };
+                console.log('extra_headers',extra_headers);
                 const sck = io(process.env.REACT_APP_CHAT_BASE, {
                     path: "/socket.io",
                     autoConnect: true,
-                    extraHeaders: {
-                        access_token: access_token,
-                        room: response.data.user.room,
-                        user_id: response.data.user._id,
-                        name: response.data.user.name
-                    }
+                    extraHeaders: extra_headers,
+                    transports: ['polling']
                 });
                 console.log('sck:',sck);
 
