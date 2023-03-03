@@ -9,6 +9,7 @@ const LeftAuthMenu = (props) => {
     let interval_id;
     const [numberOfUnreadMessages, setNumberOfUnreadMessages] = useState(0);
     const globalContext = useContext(AppContext);
+    const [fetchUnreadFailed, setFetchUnreadFailed] = useState(false);
 
     const fetchUnreadMessages = async () => {
         try{
@@ -19,12 +20,13 @@ const LeftAuthMenu = (props) => {
             }
         }
         catch(exception){
+            setFetchUnreadFailed(true);
             console.log("exception",exception);
         }
     }
 
     useEffect(() => {
-        if(globalContext?.loggedInUserDetails?.current_match && props.caller !== 'match'){
+        if(globalContext?.loggedInUserDetails?.current_match && props.caller !== 'match' && !fetchUnreadFailed){
             // eslint-disable-next-line react-hooks/exhaustive-deps
             interval_id = setInterval(function(){
                 fetchUnreadMessages().catch(console.log);
