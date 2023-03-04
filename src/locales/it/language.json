@@ -137,6 +137,9 @@
   "UPLOAD_PICTURES": "Carica una o piú foto di te",
   "UPLOAD_PICTURES_OF_YOURSELF": "Premi qui per caricare le tue foto",
   "MY_BIRTHDAY": "Data di nascita",
+  "MY_BIRTHDAY_YEAR": "Anno di nascita",
+  "MY_BIRTHDAY_MONTH": "Mese di nascita",
+  "MY_BIRTHDAY_DAY": "Giorno di nascita",
   "SELECT_YEAR": "Seleziona anno",
   "SELECT_MONTH": "Seleziona mese",
   "SELECT_DAY": "Seleziona giorno",
@@ -217,7 +220,8 @@
   "ALREADY_FOUND_NEW_MATCH": "Hai giá trovato un nuovo partner!",
   "NO_CURRENT_MATCHES": "Al momento non hai un partner",
   "GO_FIND_AMONG_SUGGESTIONS": "Premi per trovare la persona giusta",
-  "FAVORITES": "I miei preferiti",
+  "FAVORITES": "Profili ai quali sono interessato",
+  "WINNERS": "Profili che ho scelto come potenziali partner",
   "REFUSED": "Profili che non mi sono piaciuti",
   "IT_WAS_A_MATCH": "Hai un partner!",
   "YOUR_CURRENT_EMAIL": "Il tuo indirizzo e-mail attuale:",
@@ -227,6 +231,7 @@
   "NO_FAVORITES_YET": "Non ci sono ancora profili che non hai selezionato come preferiti",
   "CONFIRM_REMOVE_FROM_DISLIKED": "Dai un'altra possibilitá a questo profilo",
   "CONFIRM_REMOVE_FROM_FAVORITES": "Elimina dai preferiti",
+  "CONFIRM_REMOVE_FROM_WINNERS": "Elimina dalle scelte",
   "CONFIRM_REMOVE": "Elimina",
   "OR": "oppure",
   "CANCEL": "Cancella",
@@ -237,6 +242,8 @@
   "ABOUT_LOVERINO_COPY_3": "",
   "COOKIE_POLICY_1": "Loverino ha a cuore la tua integritá personale. Per questo desideriamo informarti del modo in cui usiamo i tuoi dati.",
   "COOKIE_POLICY_2": "Loverino usa dei cookie per poter rendere la tua esperienza sul sito migliore. I tuoi dati non vengono condivisi con terzi. Oltretutto, dati come password a affini vengono salvati nel database utilizzando un algoritmo di criptografia per poter salvaguardare informazioni personali in caso di sabotaggio.",
+  "CURRENTLY_IN_A_MATCH_CONSEQUENCES": "Attenzione: non é possibile avere piú partner contemporaneamente. Per questo motivo al momento non puoi vedere altri profili.",
+  "WARNING_PICTURE_REQUIRED": "Attenzione: é obbligatorio caricare una foto profilo",
 
   "xs": "Molto magro",
   "s": "Magro",
@@ -246,7 +253,8 @@
 
   "LINK_MATCH": "Partner",
   "LINK_SUGGESTION": "Profili",
-  "LINK_FAVORITES": "Preferiti",
+  "LINK_WINNERS": "Scelte",
+  "LINK_FAVORITES": "Interessanti",
   "LINK_REFUSED": "Eliminati",
 
   "URL_ACCOUNT_CREATED": "/account-creto",
@@ -276,5 +284,6 @@
   "URL_REMATCHED": "/rematched",
   "URL_FAVORITES": "/preferiti",
   "URL_REFUSED": "/eliminati",
+  "URL_WINNERS": "/scelte",
   "URL_ACCOUNT": "/il-mio-account"
 }

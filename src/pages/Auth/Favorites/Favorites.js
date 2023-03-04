@@ -99,6 +99,7 @@ const Favorites = () => {
                         favoritesFetched && favorites.length > 0 &&
                         <UsersList
                             confirmRestore={confirmRestore}
+                            restoreIcon="trash"
                             users={favorites}
                             numberOfPages={numberOfPages}
                             currentPage={currentPage}

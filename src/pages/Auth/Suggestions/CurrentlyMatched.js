@@ -17,7 +17,7 @@ const CurrentlyMatched = (props) => {
                 </h4>
                 <div className="text-center">
                     <h6>
-                        Tänk på att du inte får ha flera matcher samtidigt. Därför får du inga nya förslag.
+                        {t('CURRENTLY_IN_A_MATCH_CONSEQUENCES')}
                     </h6>
                 </div>
             </div>

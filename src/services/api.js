@@ -35,11 +35,14 @@ export const API_URLS =
         ,USER_REFRESH_TOKEN: {url: `${USER_PREFIX}/refreshToken`, method: 'POST', auth: false}
         ,USER_GET_REFUSED_USERS: {url: `${USER_PREFIX}/getRefusedUsers`, method: 'POST', auth: true}
         ,USER_GET_FAVORITE_USERS: {url: `${USER_PREFIX}/getFavoriteUsers`, method: 'POST', auth: true}
+        ,USER_GET_WINNER_USERS: {url: `${USER_PREFIX}/getWinnerUsers`, method: 'POST', auth: true}
         ,USER_RESTORE_REFUSED_USER: {url: `${USER_PREFIX}/restoreRefusedUser`, method: 'POST', auth: true}
         ,USER_RESTORE_FAVORITE_USER: {url: `${USER_PREFIX}/restoreFavoriteUser`, method: 'POST', auth: true}
+        ,USER_RESTORE_WINNER_USER: {url: `${USER_PREFIX}/restoreWinnerUser`, method: 'POST', auth: true}
         ,GEO_GET_REGIONS: {url: `${GEO_PREFIX}/region`, method: 'GET', auth: false}
         ,GEO_GET_CITIES: {url: `${GEO_PREFIX}/city`, method: 'GET', auth: false}
         ,SUGGESTION_GET_MINE: {url: `${SUGGESTION_PREFIX}/suggestions`, method: 'GET', auth: true}
+        ,SUGGESTION_GET_WINNERS: {url: `${SUGGESTION_PREFIX}/winners`, method: 'GET', auth: true}
         ,SUGGESTION_SET_VOTE: {url: `${SUGGESTION_PREFIX}/vote`, method: 'POST', auth: true}
         ,SUGGESTION_GET_COMPETITION: {url: `${SUGGESTION_PREFIX}/competition`, method: 'GET', auth: true}
         ,SUGGESTION_POST_COMPETITION: {url: `${SUGGESTION_PREFIX}/competition`, method: 'POST', auth: true}

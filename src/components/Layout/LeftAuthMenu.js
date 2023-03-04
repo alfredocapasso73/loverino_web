@@ -51,6 +51,11 @@ const LeftAuthMenu = (props) => {
                         {numberOfUnreadMessages !== 0 && <span className="items-round-little bg-primary">{numberOfUnreadMessages}</span>}
                     </div>
                     <div className="ui-block-title">
+                        <Link to={`${t('URL_WINNERS')}`} className="h6 title">
+                            {t('LINK_WINNERS')}
+                        </Link>
+                    </div>
+                    <div className="ui-block-title">
                         <Link to={`${t('URL_FAVORITES')}`} className="h6 title">
                             {t('LINK_FAVORITES')}
                         </Link>

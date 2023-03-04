@@ -366,7 +366,7 @@ const CommonMyProfile = (props) => {
                         has_errored={errorDistance}
                     />
                     <Select
-                        label={t('MY_BIRTHDAY')}
+                        label={t('MY_BIRTHDAY_YEAR')}
                         selected_option={t('SELECT_YEAR')}
                         options={years}
                         my_ref={yearRef}
@@ -375,7 +375,7 @@ const CommonMyProfile = (props) => {
                         has_errored={errorYear}
                     />
                     <Select
-                        label={t('MY_BIRTHDAY')}
+                        label={t('MY_BIRTHDAY_MONTH')}
                         selected_option={t('SELECT_MONTH')}
                         options={months}
                         my_ref={monthRef}
@@ -387,7 +387,7 @@ const CommonMyProfile = (props) => {
                     <div className={`col col-lg-2 col-md-2 col-sm-12 col-12`}>
                         <div className="form-group label-floating is-select">
                             <label className="control-label">
-                                {t('MY_BIRTHDAY')}
+                                {t('MY_BIRTHDAY_DAY')}
                             </label>
                             <select value={day} className="form-select" onChange={e => setDay(e.target.value)}>
                                 <option value="">{t('SELECT_DAY')}</option>

@@ -225,7 +225,7 @@ const CommonMyPictures = (props) => {
                                     images && props.caller === 'step3' &&
                                     <div className="row" style={{paddingTop: '60px'}}>
                                         <div className="col">
-                                            <button className="btn btn-primary" onClick={doneStep3}>
+                                            <button className={`btn btn-primary`}onClick={doneStep3}>
                                                 {t('IM_DONE_STEP_3')}
                                             </button>
                                         </div>

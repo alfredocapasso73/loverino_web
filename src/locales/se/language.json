@@ -138,6 +138,9 @@
   "UPLOAD_PICTURES": "Ladda upp bilder",
   "UPLOAD_PICTURES_OF_YOURSELF": "Klicka för att ladda upp bilder på dig själv",
   "MY_BIRTHDAY": "Min födelsedag",
+  "MY_BIRTHDAY_YEAR": "Min födelseår",
+  "MY_BIRTHDAY_MONTH": "Min födelsemånad",
+  "MY_BIRTHDAY_DAY": "Min födelsedag",
   "SELECT_YEAR": "Välj år",
   "SELECT_MONTH": "Välj månad",
   "SELECT_DAY": "Välj dag",
@@ -218,7 +221,8 @@
   "ALREADY_FOUND_NEW_MATCH": "Du har redan hittat en ny match!",
   "NO_CURRENT_MATCHES": "Du har ingen match just nu",
   "GO_FIND_AMONG_SUGGESTIONS": "Klicka på knappen nedan för att hitta rätt",
-  "FAVORITES": "Mina favoriter",
+  "FAVORITES": "Profiler som jag är intresserad av",
+  "WINNERS": "Profiler som jag valde som potentiella matcher",
   "REFUSED": "Profiler jag tackat nej till",
   "IT_WAS_A_MATCH": "Du har matchats!",
   "YOUR_CURRENT_EMAIL": "Din nuvarande e-post adress:",
@@ -228,6 +232,7 @@
   "NO_FAVORITES_YET": "Du har ännu inte profiler som du gillat",
   "CONFIRM_REMOVE_FROM_DISLIKED": "Ge denna profil ny chans",
   "CONFIRM_REMOVE_FROM_FAVORITES": "Ta bort från gillade",
+  "CONFIRM_REMOVE_FROM_WINNERS": "Ta bort från utvalda",
   "CONFIRM_REMOVE": "Ta bort",
   "OR": "eller",
   "CANCEL": "Avbryt",
@@ -238,6 +243,9 @@
   "ABOUT_LOVERINO_COPY_3": "Vill man hitta en person för kvällen eller bara ha ytliga relationer får man då lov att använda andra tjänster. Här hos Loverino ä det tänkt att man ska lära känna den andra person på ett djupare plan.",
   "COOKIE_POLICY_1": "Vi vill att du som användare ska känna förtroende för oss. Loverino ser därför till att skydda din personliga integritet. En viktig del av detta är att ge dig som användare så mycket information som möjligt om hur vi använder dina personuppgifter. ",
   "COOKIE_POLICY_2": "Loverino lagrar data av dig som användare i en cookie i webbläsare för att kunna ge dig bästa möjliga upplevelse. Datat delas inte med andra aktörer och används enbart för att se till att ditt besök ska upplevas optimalt, såsom till exempel för att kunna låta dig loggas in per automatik. Inget känsligt data sparas i cookie dock.",
+  "CURRENTLY_IN_A_MATCH_CONSEQUENCES": "Tänk på att du inte får ha flera matcher samtidigt. Därför får du inga nya förslag.",
+  "WARNING_PICTURE_REQUIRED": "Observera att du måste ladda upp en bild för att slutföra kontouppsättning",
+
 
   "xs": "Mycket smal",
   "s": "Smal",
@@ -247,8 +255,9 @@
 
   "LINK_MATCH": "Match",
   "LINK_SUGGESTION": "Förslag",
-  "LINK_FAVORITES": "Favoriter",
+  "LINK_FAVORITES": "Gillade",
   "LINK_REFUSED": "Borttagna",
+  "LINK_WINNERS": "Utvalda",
 
   "URL_ACCOUNT_CREATED": "/ditt-konto-har-skapats",
   "URL_AUTH_START_PAGE": "/dashboard",
@@ -277,5 +286,6 @@
   "URL_REMATCHED": "/rematched",
   "URL_FAVORITES": "/favoriter",
   "URL_REFUSED": "/borttagna",
+  "URL_WINNERS": "/utvalda",
   "URL_ACCOUNT": "/mitt-konto"
 }

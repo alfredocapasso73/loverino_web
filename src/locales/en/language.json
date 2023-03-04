@@ -138,6 +138,9 @@
   "UPLOAD_PICTURES": "Ladda upp bilder",
   "UPLOAD_PICTURES_OF_YOURSELF": "Klicka för att ladda upp bilder på dig själv",
   "MY_BIRTHDAY": "Min födelsedag",
+  "MY_BIRTHDAY_YEAR": "Year of borth",
+  "MY_BIRTHDAY_MONTH": "Month of borth",
+  "MY_BIRTHDAY_DAY": "Day of borth",
   "SELECT_YEAR": "Välj år",
   "SELECT_MONTH": "Välj månad",
   "SELECT_DAY": "Välj dag",
@@ -218,7 +221,9 @@
   "ALREADY_FOUND_NEW_MATCH": "Du har redan hittat en ny match!",
   "NO_CURRENT_MATCHES": "Du har ingen match just nu",
   "GO_FIND_AMONG_SUGGESTIONS": "Klicka på knappen nedan för att hitta rätt",
-  "FAVORITES": "Mina favoriter",
+  "FAVORITES": "Profiles I am interested in",
+  "WINNERS": "Profiles that I selected as potential matches",
+  "CONFIRM_REMOVE_FROM_WINNERS": "Remove from selected profiles",
   "REFUSED": "Profiler jag tackat nej till",
   "IT_WAS_A_MATCH": "Du har matchats!",
   "YOUR_CURRENT_EMAIL": "Din nuvarande e-post adress:",
@@ -238,6 +243,8 @@
   "ABOUT_LOVERINO_COPY_3": "Vill man hitta en person för kvällen eller bara ha ytliga relationer får man då lov att använda andra tjänster. Här hos Loverino ä det tänkt att man ska lära känna den andra person på ett djupare plan.",
   "COOKIE_POLICY_1": "Vi vill att du som användare ska känna förtroende för oss. Loverino ser därför till att skydda din personliga integritet. En viktig del av detta är att ge dig som användare så mycket information som möjligt om hur vi använder dina personuppgifter. ",
   "COOKIE_POLICY_2": "Loverino lagrar data av dig som användare i en cookie i webbläsare för att kunna ge dig bästa möjliga upplevelse. Datat delas inte med andra aktörer och används enbart för att se till att ditt besök ska upplevas optimalt, såsom till exempel för att kunna låta dig loggas in per automatik. Inget känsligt data sparas i cookie dock.",
+  "CURRENTLY_IN_A_MATCH_CONSEQUENCES": "Please note that you can not have more than a match. For this reason you won't see new suggestion as long as you have a match.",
+  "WARNING_PICTURE_REQUIRED": "Please note that a profile picture is mandatory",
 
   "xs": "Mycket smal",
   "s": "Smal",
@@ -247,7 +254,8 @@
 
   "LINK_MATCH": "Match",
   "LINK_SUGGESTION": "Förslag",
-  "LINK_FAVORITES": "Favoriter",
+  "LINK_WINNERS": "Chosen",
+  "LINK_FAVORITES": "Liked",
   "LINK_REFUSED": "Borttagna",
 
   "URL_ACCOUNT_CREATED": "/ditt-konto-har-skapats",
@@ -277,5 +285,6 @@
   "URL_REMATCHED": "/rematched",
   "URL_FAVORITES": "/favoriter",
   "URL_REFUSED": "/borttagna",
+  "URL_WINNERS": "/selected",
   "URL_ACCOUNT": "/mitt-konto"
 }

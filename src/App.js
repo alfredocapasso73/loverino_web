@@ -25,6 +25,7 @@ import UnMatched from './pages/Auth/Match/UnMatched';
 import ReMatched from './pages/Auth/Match/ReMatched';
 import Favorites from './pages/Auth/Favorites/Favorites';
 import Refused from './pages/Auth/Refused/Refused';
+import Winners from './pages/Auth/Winners/Winners';
 import Competition from './pages/Auth/Suggestions/Competition';
 import Step2 from './pages/Auth/Step2/Step2';
 import Step3 from './pages/Auth/Step3/Step3';
@@ -122,6 +123,7 @@ const App = () => {
                             <Route path={t('URL_NOTIFICATION')} element={<Notifications />} />
                             <Route path={t('URL_ACCOUNT')} element={<MyAccount />} />
                             <Route path={`${t('URL_FAVORITES')}`} element={<Favorites />} />
+                            <Route path={`${t('URL_WINNERS')}`} element={<Winners />} />
                             <Route path={`${t('URL_REFUSED')}`} element={<Refused />} />
                         </Route>
                     </Routes>

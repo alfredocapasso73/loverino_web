@@ -196,6 +196,17 @@ export async function api_post_vote(body){
     }
 }
 
+export async function api_get_winners(){
+    try{
+        const request = await make_request(API_URLS.SUGGESTION_GET_WINNERS);
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_get_suggestions(){
     try{
         const request = await make_request(API_URLS.SUGGESTION_GET_MINE);
@@ -307,9 +318,31 @@ export async function api_get_me(){
     }
 }
 
+export async function api_get_winner_users(current_page){
+    try{
+        const request = await make_request(API_URLS.USER_GET_WINNER_USERS, {current_page: current_page});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
 export async function api_get_refused_users(current_page){
     try{
         const request = await make_request(API_URLS.USER_GET_REFUSED_USERS, {current_page: current_page});
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}
+
+export async function api_restore_winner_user(restore_id){
+    try{
+        const request = await make_request(API_URLS.USER_RESTORE_WINNER_USER, {restore_id: restore_id});
         return request;
     }
     catch(exception){

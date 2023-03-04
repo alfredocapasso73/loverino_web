@@ -104,7 +104,7 @@ const UsersList = (props) => {
                                             {
                                                 usr._id !== props?.currentMatch &&
                                                 <button className="btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={e => props.restore(usr, true)}>
-                                                    <i className="fa-solid fa-trash" style={{color: 'black'}}></i>
+                                                    <i className={`fa-solid fa-${props.restoreIcon}`} style={{color: 'black'}}></i>
                                                 </button>
                                             }
                                         </div>
