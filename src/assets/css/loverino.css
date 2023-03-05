@@ -5,25 +5,6 @@
 .left-menu-button:hover a{
     color: var(--olympus-white-color) !important;
 }
-.chat_message_me{
-    background-color: whitesmoke;
-    padding: 15px;
-    border-radius: 5px;
-    text-align: right;
-
-}
-.chat_message_other{
-    background-color: #2f6f9f;
-    color: white;
-    padding: 3px;
-    border-radius: 5px;
-}
-.chat_container{
-    height: 450px;
-    border: 1px solid gray;
-    padding: 5px;
-    overflow-y: scroll;
-}
 .ui-block-title{
     text-align: center;
 }
@@ -331,4 +312,35 @@
     margin-top: 1.5rem;
     font-size: 1.1rem;
     color: #be2617;
+}
+.partners_area{
+    height: 80vh;
+    border: 1px solid #e6ecf5;
+    border-radius: 5px;
+    padding: 5px;
+    overflow-y: scroll;
+}
+.partners_input_area{
+    margin-top: 10px;
+}
+.partners_send_btn{
+    margin-bottom: 0px !important;
+}
+.chat_message_me{
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: right;
+}
+.chat_message_other{
+    background-color: #2f6f9f;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+.chat_container{
+    height: 450px;
+    border: 1px solid gray;
+    padding: 5px;
+    overflow-y: scroll;
 }

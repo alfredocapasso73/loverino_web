@@ -30,6 +30,7 @@
   "CLICK": "Klicka",
   "LOGIN_HERE": "Logga in här",
   "LOGIN": "Logga in",
+  "SEND": "Skicka",
   "CLICK_TO_SEND_NEW_ACTIVATION_LINK": "Klicka här för att få aktiveringslänk via mail",
   "ACTIVATION_LINK_RESENT": "Aktiveringslänk har mailats till dig",
   "invalid_email": "Ogiltig e-postadress",

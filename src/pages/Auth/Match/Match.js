@@ -88,17 +88,21 @@ const Match = () => {
         navigate(t('URL_VIEW_MATCH'));
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            sendMessage(e);
+        }
+    };
+
     const sendMessage = (e) => {
-        if(e.key === 'Enter'){
-            if(messageRef?.current?.value){
-                const msg = messageRef.current.value;
-                const message_object = {from: me._id, data: msg};
-                setChatMessages([...chatMessages, message_object]);
-                console.log("chatMessages",chatMessages);
-                socket.emit('message', msg);
-                messageRef.current.value = '';
-                scrollToBottom();
-            }
+        if(messageRef?.current?.value){
+            const msg = messageRef.current.value;
+            const message_object = {from: me._id, data: msg};
+            setChatMessages([...chatMessages, message_object]);
+            console.log("chatMessages",chatMessages);
+            socket.emit('message', msg);
+            messageRef.current.value = '';
+            scrollToBottom();
         }
     }
 
@@ -221,18 +225,14 @@ const Match = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="ui-block-content" style={{height: '80vh', position: 'relative'}}>
-                            <div style={{position: 'absolute', bottom: '20px', width: '95%'}}>
-                                <input onClick={readMessages} onKeyPress={e => sendMessage(e)} type="text" ref={messageRef} style={{border: '1px solid gray', width: '100%'}} placeholder="Enter message"/>
-                            </div>
-                            <div style={{height: '85%', border: '1px solid gray', padding: '5px', overflowY: 'scroll', borderRadius: '5px'}} onClick={readMessages} >
+                        <div className="ui-block-content">
+                            <div className="partners_area" onClick={readMessages}>
                                 {
                                     thereAreMoreMessages &&
                                     <div className="a_div text-center pointer" style={{paddingBottom: '15px'}} onClick={getMessageHistory}>
                                         Get more messages
                                     </div>
                                 }
-
                                 {
                                     chatMessages.length > 0 && chatMessages.map((ob, index) =>
                                         <div key={index} style={{padding: '5px'}} className="row">
@@ -262,6 +262,14 @@ const Match = () => {
                                     )
                                 }
                                 <div ref={messagesEndRef}>&nbsp;</div>
+                            </div>
+                            <div className="partners_input_area">
+                                <div className="input-group mb-3">
+                                    <input onClick={readMessages} onKeyDown={handleKeyDown} type="text" ref={messageRef} className="form-control" />
+                                    <button onClick={e => sendMessage(e)} className="btn btn-primary partners_send_btn" type="button">
+                                        {t('SEND')}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
