@@ -7,11 +7,16 @@ const BrowseFullImage = (props) => {
     const getAge = (birthday) => {
         return get_age_from_birthday(birthday);
     }
+
+    const viewFullImage = () => {
+        console.log("viewFullImage");
+    }
+
     return(
-        <div className="row">
+        <div className="row ui-block-content">
             <div className="col col-8">
                 <div className={`full_image_containers ${props.showingImagePopup ? 'd-block' : 'd-none'}`} style={{backgroundPosition: 'center', width: '98%'}}>
-                    <div className="ui-block">
+                    <div className="">
                         <div style={{position: 'relative'}}>
                             {
                                 props.currentImgUrl && <img alt="" loading="lazy" className="pointer" src={props.currentImgUrl}  style={{width: '100%'}}  onClick={e => props.setShowingImagePopup(false)}/>
@@ -27,6 +32,13 @@ const BrowseFullImage = (props) => {
                                     </div>
                                 </div>
                             }
+                            {
+                                1>2 &&
+                                <button className="only_mobile btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={viewFullImage}>
+                                    <i className={`fa-solid fa-magnifying-glass`} style={{color: 'black'}}></i>
+                                </button>
+                            }
+
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,24 @@
 .ui-block-title-small{
     text-align: left;
 }
+@media screen and (max-width: 599px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
 @media (max-width: 420px) {
+    .pic_navigator_left{
+        cursor: pointer;
+        position: absolute;
+        top: 35% !important;
+        left: 5px !important;
+    }
+    .pic_navigator_right{
+        cursor: pointer;
+        position: absolute;
+        top: 35% !important;;
+        right: 5px !important;
+    }
     .landing-content {
         text-align: center;
     }
