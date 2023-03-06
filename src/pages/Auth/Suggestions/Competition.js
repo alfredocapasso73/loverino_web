@@ -7,6 +7,7 @@ import CompetitionUserProfile from "./CompetitionUserProfile";
 import CompetitionError from "./CompetitionError";
 import UserProfile from "./UserProfile";
 import AppContext from "../../../components/AppContext";
+import Popup from "../../../components/Layout/Popup";
 
 const Competition = () => {
     const { t } = useTranslation();
@@ -22,6 +23,8 @@ const Competition = () => {
     const [selectedWinner, setSelectedWinner] = useState(undefined);
     const [clickedUser, setClickedUser] = useState();
     const [matched, setMatched] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [winnerConfirmText, setWinnerConfirmText] = useState('');
 
     const onImageClick = (user) => {
         setClickedUser(user);
@@ -35,7 +38,7 @@ const Competition = () => {
                 ,winner_id: selectedWinner._id
             };
             const response = await api_post_competition(body);
-            setShowModal(false);
+            setShowPopup(false);
             if(response.status !== 200){
                 setCompetitionError(true);
                 return;
@@ -61,19 +64,19 @@ const Competition = () => {
 
     const cancel = () => {
         setSelectedWinner(undefined);
-        setShowModal(false);
+        setShowPopup(false);
     }
 
     const winnerSelected = (id) => {
         const found = competitionUsers.find(el => el._id === id);
         if(found){
             setSelectedWinner(found);
-            setShowModal(true);
+            setWinnerConfirmText(`${t('IS')} ${found.name} ${t('PROFILE_YOU_LIKE_MOST')}`);
+            setShowPopup(true);
         }
     }
 
     useEffect(() => {
-        console.log('ammazza ao');
         const getCurrentCompetition = async () => {
             try{
                 const competition = await api_get_competition();
@@ -105,6 +108,16 @@ const Competition = () => {
 
     return(
         <div className="row">
+            {
+                showPopup &&
+                <Popup
+                    onCancel={cancel}
+                    onConfirm={winnerChosen}
+                    title={winnerConfirmText}
+                    confirmText={t('YES')}
+                    cancelText={t('NO')}
+                />
+            }
             <LeftAuthMenu />
             <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
                 {competitionError && <CompetitionError />}
@@ -127,31 +140,6 @@ const Competition = () => {
                                         </div>
                                     )
                                 }
-                            </div>
-                            <div className={`modal ${showModal ? 'forced_show' : ''}`} role="dialog" aria-labelledby="update-header-photo" aria-hidden="true">
-                                <div className="modal-dialog window-popup update-header-photo" role="document">
-                                    <div className="modal-content">
-                                        <div className="modal-header text-center">
-                                            <h6 className="title text-center full-width">
-                                                {
-                                                    selectedWinner &&
-                                                    <span>{t('IS')} {selectedWinner.name} {t('PROFILE_YOU_LIKE_MOST')}</span>
-                                                }
-                                            </h6>
-                                        </div>
-
-                                        <div className="modal-body">
-                                            <div className="row full-width" style={{padding: '40px'}}>
-                                                <div className="col col-6 text-center mobile_100_w">
-                                                    <button onClick={winnerChosen} className="btn btn-primary btn-lg green_button">{t('YES_PROFILE_IS_MY_FAV')}</button>
-                                                </div>
-                                                <div className="col col-6 text-center mobile_100_w">
-                                                    <button onClick={cancel} className="btn btn-danger btn-lg red_button">{t('NO_I_CHANGED_MY_MIND')}</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

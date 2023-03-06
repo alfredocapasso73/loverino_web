@@ -107,7 +107,7 @@ const Winners = () => {
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}
                             restore={restore}
-                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_WINNERS')}
+                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_WINNERS_POPUP')}
                             currentMatch={currentMatch}
                         />
                     }

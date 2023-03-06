@@ -3,47 +3,45 @@ import {useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LeftProfileMenu from "../../../components/Layout/LeftProfileMenu";
 import {api_close_account} from "../../../services/data_provider";
+import Popup from "../../../components/Layout/Popup";
 
 const MyAccount = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [closeAccountFailed, setCloseAccountFailed] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
 
     const regret = () => {
-        setShowModal(false);
+        setShowPopup(false);
     }
 
     const callDeleteAccount = async () => {
         try{
-            const result = await api_close_account();
-            setIsSubmitting(false);
-            if(result.status !== 200){
-                setCloseAccountFailed(true);
-            }
-            else{
-                window.localStorage.removeItem('token');
-                setShowModal(false);
-                navigate('/');
-            }
+            await api_close_account();
+            window.localStorage.removeItem('token');
+            setShowPopup(false);
+            navigate('/');
         }
         catch(exception){
             console.log("exception",exception);
         }
     }
 
-    const confirmDeleteAccount = () => {
-        setIsSubmitting(true);
-        setTimeout(callDeleteAccount, 1000);
-    }
-
     const deleteAccount = () => {
-        setShowModal(true);
+        setShowPopup(true);
     }
 
     return(
         <div className="row">
+            {
+                showPopup &&
+                <Popup
+                    onCancel={regret}
+                    onConfirm={callDeleteAccount}
+                    title={t('DO_YOU_REALLY_WANT_TO_DELETE_ACCOUNT')}
+                    confirmText={t('YES')}
+                    cancelText={t('NO')}
+                />
+            }
             <LeftProfileMenu />
             <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{height: '100vh'}}>
                 <div className="ui-block">
@@ -69,42 +67,6 @@ const MyAccount = () => {
                         </div>
                         <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <button onClick={deleteAccount} className="btn btn-primary btn-lg full-width">{t('DELETE_ACCOUNT')}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className={`modal ${showModal ? 'forced_show' : ''}`} role="dialog" aria-labelledby="update-header-photo" aria-hidden="true">
-                <div className="modal-dialog window-popup update-header-photo" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header text-center">
-                            <h6 className="title">
-                                {t('DO_YOU_REALLY_WANT_TO_DELETE_ACCOUNT')}
-                            </h6>
-                        </div>
-
-                        <div className="modal-body">
-                            <div className="row" style={{width: '100%', padding: '40px'}}>
-                                {
-                                    isSubmitting &&
-                                    <div className="text-center">
-                                        <div className="spinner-border text-center" role="status" style={{marginRight: 'auto', marginLeft: 'auto'}}>
-                                            <span className="visually-hidden">Loading...</span>
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    closeAccountFailed &&
-                                    <div className="alert alert-danger text-center">
-                                        {t('CLOSING_ACCOUNT_FAILED')}
-                                    </div>
-                                }
-                                <div className="col col-6 text-center">
-                                    <button disabled={isSubmitting} onClick={confirmDeleteAccount} className="btn btn-danger btn-lg">{t('YES_DELETE_MY_ACCOUNT')}</button>
-                                </div>
-                                <div className="col col-6 text-center">
-                                    <button disabled={isSubmitting} onClick={regret} className="btn btn-primary btn-lg">{t('NO_DONT_DELETE_ACCOUNT')}</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -90,7 +90,7 @@ const Refused = () => {
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}
                             restore={restore}
-                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_DISLIKED')}
+                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_DISLIKED_POPUP')}
                         />
                     }
                 </div>

@@ -105,7 +105,7 @@ const Favorites = () => {
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}
                             restore={restore}
-                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_FAVORITES')}
+                            confirmRestoreText={t('CONFIRM_REMOVE_FROM_FAVORITES_POPUP')}
                             currentMatch={currentMatch}
                         />
                     }

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import BrowseFullImage from "./BrowseFullImage";
+import Popup from "../../../components/Layout/Popup";
 
 const UsersList = (props) => {
     const { t } = useTranslation();
@@ -10,6 +11,8 @@ const UsersList = (props) => {
     const [currentUserClicked, setCurrentUserClicked] = useState();
     const [hasMultipleImages, setHasMultipleImages] = useState(false);
     const [currentImgPosition, setCurrentImgPosition] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
+    const [currentUserToRestore, setCurrentUserToRestore] = useState(undefined);
 
     const browseImages = (direction) => {
         let new_position;
@@ -61,9 +64,37 @@ const UsersList = (props) => {
         return get_age_from_birthday(birthday);
     }
 
+    const callRestore = (usr) => {
+        setShowPopup(true);
+        setCurrentUserToRestore(usr);
+        props.restore(usr, true);
+    }
+
+    const callConfirmRestore = () => {
+        props.confirmRestore(currentUserToRestore)
+        setCurrentUserToRestore(undefined);
+        setShowPopup(false);
+    }
+
+    const callCancelRestore = () => {
+        props.restore(currentUserToRestore, false);
+        setCurrentUserToRestore(undefined);
+        setShowPopup(false);
+    }
+
 
     return(
         <div className="row">
+            {
+                showPopup &&
+                <Popup
+                    onCancel={callCancelRestore}
+                    onConfirm={callConfirmRestore}
+                    title={props.confirmRestoreText}
+                    confirmText={t('YES')}
+                    cancelText={t('NO')}
+                />
+            }
             <div className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
                 {
                     currentUserClicked && showingImagePopup &&
@@ -89,21 +120,11 @@ const UsersList = (props) => {
                                             <div className={`img_with_trash ${usr.restore_clicked ? 'img_with_trash_opaque' : ''}`}>
                                                 <img  onClick={e => onImageClick(usr)} src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
                                             </div>
-                                            {
-                                                usr.restore_clicked &&
-                                                <div className="container_confirm_remove_picture">
-                                                    <div style={{paddingTop: '30%'}}>
-                                                        <div onClick={e => props.confirmRestore(usr)} className="a_div pointer opaque_on_hover" style={{fontWeight: 'bolder'}}>{props.confirmRestoreText}</div>
-                                                        <div className="a_div" style={{fontWeight: 'bolder'}}>{t('OR')}</div>
-                                                        <div onClick={e => props.restore(usr, false)} className="a_div pointer opaque_on_hover" style={{fontWeight: 'bolder'}}>{t('CANCEL')}</div>
-                                                    </div>
-                                                </div>
-                                            }
                                         </div>
                                         <div>
                                             {
                                                 usr._id !== props?.currentMatch &&
-                                                <button className="btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={e => props.restore(usr, true)}>
+                                                <button className="btn btn-bg-secondary" style={{width: '100%', background: '#edf2f6'}} onClick={e => callRestore(usr)}>
                                                     <i className={`fa-solid fa-${props.restoreIcon}`} style={{color: 'black'}}></i>
                                                 </button>
                                             }
