@@ -451,3 +451,15 @@ export async function image_upload_picture(file){
         throw exception;
     }
 }
+
+export async function get_in_touch(email, message){
+    try{
+        const body = {email: email, message: message};
+        const request = await make_request(API_URLS.USER_GET_IN_TOUCH, body);
+        return request;
+    }
+    catch(exception){
+        console.log('exception',exception);
+        throw exception;
+    }
+}

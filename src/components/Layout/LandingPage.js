@@ -53,8 +53,7 @@ const LandingPage = () => {
             {
                 !cookieConsented &&
                 <div className="alert text-center cookiealert show">
-                    {t('COOKIE_CONSENT_TEXT')}&nbsp;
-                    <span className="a_div">{t('READ_MORE')}</span>&nbsp;
+                    <a target="_blank" href="/terms">{t('COOKIE_CONSENT_TEXT')}</a>&nbsp;
                     <button type="button" className="btn btn-primary btn-sm acceptcookies" onClick={consentCookie}>
                         {t('I_CONSENT')}
                     </button>

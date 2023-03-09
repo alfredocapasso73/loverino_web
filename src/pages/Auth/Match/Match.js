@@ -7,11 +7,13 @@ import MatchError from "./MatchError";
 import NoCurrentMatch from "./NoCurrentMatch";
 import {get_more_svg_icon} from '../../../assets/Svg/Svg';
 import {io} from "socket.io-client";
+import Carousel from "../../../components/Layout/Carousel";
 
 
 const Match = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const [showingImagePopup, setShowingImagePopup] = useState(false);
     const [socket, setSocket] = useState(null);
     const [errored, setErrored] = useState(false);
     const [me, setMe] = useState(undefined);
@@ -85,7 +87,8 @@ const Match = () => {
     };
 
     const showMatchImage = () => {
-        navigate(t('URL_VIEW_MATCH'));
+        setShowingImagePopup(true);
+        //navigate(t('URL_VIEW_MATCH'));
     };
 
     const handleKeyDown = (e) => {
@@ -191,7 +194,9 @@ const Match = () => {
         return () => {
             console.log("are we leaving?");
         }
-    }, [])
+    }, []);
+
+    const carousel_base_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/big-picture`;
 
     return(
         <div className="row">
@@ -202,76 +207,93 @@ const Match = () => {
                 {
                     me && myMatch &&
                     <div className="ui-block">
-                        <div className="ui-block-title">
-                            <div className="col col-4 text-left">
-                                <h6 className="title pointer">
-                                    {myMatch.pictures.length > 0 && <img src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/tiny-picture-${myMatch.pictures[0]}`} alt="" onClick={showMatchImage}/>}
-                                    {myMatch.pictures.length === 0 && <span onClick={showMatchImage}><i className="fas fa-user"></i></span>}
-                                </h6>
+                        {
+                            myMatch && showingImagePopup &&
+                            <div className="ui-block-content">
+                                <Carousel user={myMatch} closeImage={setShowingImagePopup}>
+                                    {
+                                        myMatch.pictures.map((pic, index) =>
+                                            <img key={index} className="carousel_img" src={`${carousel_base_url}-${pic}`} alt="placeholder" />
+                                        )
+                                    }
+                                </Carousel>
                             </div>
-                            <div className="col col-4 text-center">
-                                <h6 className="title">
-                                    {t('YOU_AND')} {myMatch.name}
-                                </h6>
-                            </div>
-                            <div className="col col-4">
-                                <div className="more" style={{width: '100%'}}>
-                                    {get_more_icon}
-                                    <ul className="more-dropdown">
-                                        <li className="danger_link" onClick={e => setShowModal(true)}>
-                                            Avmatcha
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="ui-block-content">
-                            <div className="partners_area" onClick={readMessages}>
-                                {
-                                    thereAreMoreMessages &&
-                                    <div className="a_div text-center pointer" style={{paddingBottom: '15px'}} onClick={getMessageHistory}>
-                                        Get more messages
+                        }
+                        {
+                            !showingImagePopup &&
+                            <div>
+                                <div className="ui-block-title">
+                                    <div className="col col-4 text-left">
+                                        <h6 className="title pointer">
+                                            {myMatch.pictures.length > 0 && <img src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/tiny-picture-${myMatch.pictures[0]}`} alt="" onClick={showMatchImage}/>}
+                                            {myMatch.pictures.length === 0 && <span onClick={showMatchImage}><i className="fas fa-user"></i></span>}
+                                        </h6>
                                     </div>
-                                }
-                                {
-                                    chatMessages.length > 0 && chatMessages.map((ob, index) =>
-                                        <div key={index} style={{padding: '5px'}} className="row">
-                                            <div className="col col-6">
-                                                {
-                                                    ob.from !== me._id &&
-                                                    <div>
-                                                        <div className="chat_message_other">
-                                                            {ob.data}
-                                                        </div>
-                                                    </div>
-                                                }
-                                                {ob.from === me._id && <span>&nbsp;</span>}
-                                            </div>
-                                            <div className="col col-6">
-                                                {
-                                                    ob.from === me._id &&
-                                                    <div>
-                                                        <div className="chat_message_me">
-                                                            {ob.data}
-                                                        </div>
-                                                    </div>
-                                                }
-                                                {ob.from !== me._id && <span>&nbsp;</span>}
-                                            </div>
+                                    <div className="col col-4 text-center">
+                                        <h6 className="title">
+                                            {t('YOU_AND')} {myMatch.name}
+                                        </h6>
+                                    </div>
+                                    <div className="col col-4">
+                                        <div className="more" style={{width: '100%'}}>
+                                            {get_more_icon}
+                                            <ul className="more-dropdown">
+                                                <li className="danger_link" onClick={e => setShowModal(true)}>
+                                                    Avmatcha
+                                                </li>
+                                            </ul>
                                         </div>
-                                    )
-                                }
-                                <div ref={messagesEndRef}>&nbsp;</div>
-                            </div>
-                            <div className="partners_input_area">
-                                <div className="input-group mb-3">
-                                    <input onClick={readMessages} onKeyDown={handleKeyDown} type="text" ref={messageRef} className="form-control" />
-                                    <button onClick={e => sendMessage(e)} className="btn btn-primary partners_send_btn" type="button">
-                                        {t('SEND')}
-                                    </button>
+                                    </div>
+                                </div>
+                                <div className="ui-block-content">
+                                    <div className="partners_area" onClick={readMessages}>
+                                        {
+                                            thereAreMoreMessages &&
+                                            <div className="a_div text-center pointer" style={{paddingBottom: '15px'}} onClick={getMessageHistory}>
+                                                Get more messages
+                                            </div>
+                                        }
+                                        {
+                                            chatMessages.length > 0 && chatMessages.map((ob, index) =>
+                                                <div key={index} style={{padding: '5px'}} className="row">
+                                                    <div className="col col-6">
+                                                        {
+                                                            ob.from !== me._id &&
+                                                            <div>
+                                                                <div className="chat_message_other">
+                                                                    {ob.data}
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        {ob.from === me._id && <span>&nbsp;</span>}
+                                                    </div>
+                                                    <div className="col col-6">
+                                                        {
+                                                            ob.from === me._id &&
+                                                            <div>
+                                                                <div className="chat_message_me">
+                                                                    {ob.data}
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        {ob.from !== me._id && <span>&nbsp;</span>}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                        <div ref={messagesEndRef}>&nbsp;</div>
+                                    </div>
+                                    <div className="partners_input_area">
+                                        <div className="input-group mb-3">
+                                            <input onClick={readMessages} onKeyDown={handleKeyDown} type="text" ref={messageRef} className="form-control" />
+                                            <button onClick={e => sendMessage(e)} className="btn btn-primary partners_send_btn" type="button">
+                                                {t('SEND')}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 }
                 <div className={`modal ${showModal ? 'forced_show' : ''}`} role="dialog" aria-labelledby="update-header-photo" aria-hidden="true">

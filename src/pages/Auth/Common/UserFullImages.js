@@ -39,7 +39,7 @@ const UserFullImages = (props) => {
 
     return(
         <div className="text-center" style={{padding: '15px', position: 'relative'}}>
-            <img alt="" loading="lazy" className="pointer" src={currentImage}  style={{width: '100%'}} />
+            <img onClick={props.imageClose} alt="" loading="lazy" className="pointer" src={currentImage}  style={{width: '100%'}} />
             <i onClick={props.imageClose} className={`fa-solid fa-close close_pic_inside_image`}></i>
             {
                 props.user.pictures.length > 1 &&

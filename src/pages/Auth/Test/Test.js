@@ -1,7 +1,7 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
-import {useNavigate} from "react-router-dom";
+import Carousel from "../../../components/Layout/Carousel";
+
 
 const Test = () => {
 
@@ -18,17 +18,17 @@ const Test = () => {
                         </div>
                     </div>
                     <div className="ui-block-content">
-                        <div className="partners_area">
-                            area
-                        </div>
-                        <div className="partners_input_area">
-                            <div className="input-group mb-3">
-                                <input type="text" className="form-control" />
-                                    <button className="btn btn-primary partners_send_btn" type="button">
-                                        Button
-                                    </button>
+                        <div className="row">
+                            <div className="col-9" style={{backgroundColor: 'red'}}>
+                                col
+                            </div>
+                            <div className="col-3" style={{backgroundColor: 'green'}}>
+                                col
                             </div>
                         </div>
+                        <Carousel>
+                            <img className="carousel_img" src="https://images.localoverino.se:8080/getImage/big-picture-1677695454709.png" alt="placeholder" />
+                        </Carousel>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ export const user_prefix = USER_PREFIX;
 export const API_URLS =
     {
         USER_ME: {url: `${USER_PREFIX}/me`, method: 'GET', auth: true}
+        ,USER_GET_IN_TOUCH: {url: `${USER_PREFIX}/get_in_touch`, method: 'POST', auth: false}
         ,USER_SIGNUP: {url: `${USER_PREFIX}/signup`, method: 'POST', auth: false}
         ,USER_SIGNIN: {url: `${USER_PREFIX}/signin`, method: 'POST', auth: false}
         ,USER_ACTIVATE: {url: `${USER_PREFIX}/activate`, method: 'GET', auth: false}

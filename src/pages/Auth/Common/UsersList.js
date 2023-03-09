@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {get_age_from_birthday} from "../../../helpers/DataCommon";
 import BrowseFullImage from "./BrowseFullImage";
 import Popup from "../../../components/Layout/Popup";
+import Carousel from "../../../components/Layout/Carousel";
 
 const UsersList = (props) => {
     const { t } = useTranslation();
@@ -82,6 +83,8 @@ const UsersList = (props) => {
         setShowPopup(false);
     }
 
+    const carousel_base_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/big-picture`;
+
 
     return(
         <div className="row">
@@ -98,7 +101,15 @@ const UsersList = (props) => {
             <div className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
                 {
                     currentUserClicked && showingImagePopup &&
-                    <BrowseFullImage user={currentUserClicked} showingImagePopup={showingImagePopup} setShowingImagePopup={setShowingImagePopup} currentImgUrl={currentImgUrl} hasMultipleImages={hasMultipleImages} browseImages={browseImages}/>
+                    <div className="ui-block-content">
+                        <Carousel user={currentUserClicked} closeImage={setShowingImagePopup}>
+                            {
+                                currentUserClicked.pictures.map((pic, index) =>
+                                    <img key={index} className="carousel_img" src={`${carousel_base_url}-${pic}`} alt="placeholder" />
+                                )
+                            }
+                        </Carousel>
+                    </div>
                 }
 
                 <div className={`ui-block-content ${showingImagePopup ? 'd-none' : 'd-block'}`} style={{position: 'relative'}}>
@@ -116,10 +127,13 @@ const UsersList = (props) => {
                                             <br />
                                             {usr.city_name}
                                         </div>
-                                        <div style={{width: '100%', position: 'relative'}} className="text-center">
-                                            <div className={`img_with_trash ${usr.restore_clicked ? 'img_with_trash_opaque' : ''}`}>
-                                                <img  onClick={e => onImageClick(usr)} src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${usr.pictures[0]}`} alt="" style={{width: '100%'}} className="user_profile_image"/>
-                                            </div>
+                                        <div style={{width: '100%', position: 'relative', paddingTop: '10px'}} className="text-center">
+                                            <img
+                                                onClick={e => onImageClick(usr)}
+                                                src={`${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/small-picture-${usr.pictures[0]}`}
+                                                alt="" style={{width: '100%'}}
+                                                className="user_profile_image"
+                                            />
                                         </div>
                                         <div>
                                             {

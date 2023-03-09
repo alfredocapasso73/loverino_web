@@ -174,10 +174,11 @@
     width: 100%;
 }
 .svg_voting_symbol{
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     border-radius: 25px;
     opacity: 0.8;
     cursor: pointer;
+    border: 1px solid black;
 }
 .svg_voting_symbol:hover{
     opacity: 0.5;
@@ -381,6 +382,14 @@
     position: absolute;
     right: 25px;
     top: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.close_pic_inside_image_left{
+    color: whitesmoke;
+    position: absolute;
+    left: 10px;
+    top: 10px;
     font-size: 1rem;
     cursor: pointer;
 }

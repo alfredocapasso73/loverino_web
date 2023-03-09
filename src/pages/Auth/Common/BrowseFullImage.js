@@ -34,6 +34,7 @@ const BrowseFullImage = (props) => {
                                     {
                                         props.currentImgUrl && <img alt="" loading="lazy" className="pointer" src={props.currentImgUrl}  style={{width: '100%'}}  onClick={e => props.setShowingImagePopup(false)}/>
                                     }
+                                    <i  onClick={e => props.setShowingImagePopup(false)} className={`fa-solid fa-close close_pic_inside_image_left`}></i>
                                     <i onClick={viewFullImage} className={`fa-solid fa-magnifying-glass zoom_pic_inside_image`}></i>
                                     {
                                         props.hasMultipleImages &&

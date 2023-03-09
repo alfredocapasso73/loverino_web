@@ -2,12 +2,13 @@ import React, {useEffect, useState, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {api_get_competition, api_get_user, api_post_competition} from "../../../services/data_provider";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CompetitionUserProfile from "./CompetitionUserProfile";
 import CompetitionError from "./CompetitionError";
-import UserProfile from "./UserProfile";
 import AppContext from "../../../components/AppContext";
 import Popup from "../../../components/Layout/Popup";
+import Carousel from "../../../components/Layout/Carousel";
+import FinalWinner from "../Common/FinalWinner";
 
 const Competition = () => {
     const { t } = useTranslation();
@@ -17,7 +18,6 @@ const Competition = () => {
     const [competitionUsers, setCompetitionUsers] = useState([]);
     const [col, setCol] = useState('');
     const [competitionId, setCompetitionId] = useState('');
-    const [showModal, setShowModal] = useState(false);
     const [competitionError, setCompetitionError] = useState(false);
     const [showingImagePopup, setShowingImagePopup] = useState(false);
     const [selectedWinner, setSelectedWinner] = useState(undefined);
@@ -106,6 +106,8 @@ const Competition = () => {
         getCurrentCompetition().catch(console.error);
     }, [navigate, t]);
 
+    const carousel_base_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/big-picture`;
+
     return(
         <div className="row">
             {
@@ -119,9 +121,9 @@ const Competition = () => {
                 />
             }
             <LeftAuthMenu />
-            <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style={{position: 'relative'}}>
+            <div className="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
                 {competitionError && <CompetitionError />}
-                {finalWinner && <UserProfile it_is_a_match={matched} main_title={t('HERE_IS_THE_WINNER')} sub_title={t('IF_PROFILE_LIKES_YOU_YOU_GOT_MATCH')} user={finalWinner} vote_user={false} />}
+                {finalWinner && <FinalWinner matched={matched} user={finalWinner}/>}
                 {
                     !finalWinner && !competitionError && competitionUsers &&
                     <div className={`ui-block ${showingImagePopup ? 'd-none' : 'd-block'}`}>
@@ -144,7 +146,25 @@ const Competition = () => {
                         </div>
                     </div>
                 }
-                {showingImagePopup && <UserProfile main_title={clickedUser.name} user={clickedUser} vote_user={false} hidePicture={setShowingImagePopup}/>}
+                {
+                    showingImagePopup &&
+                    <div className="ui-block">
+                        <div className="ui-block-title">
+                            <h6 className="title">
+                                {clickedUser.name}
+                            </h6>
+                        </div>
+                        <div className="ui-block-content">
+                            <Carousel user={clickedUser} closeImage={setShowingImagePopup}>
+                                {
+                                    clickedUser.pictures.map((pic, index) =>
+                                        <img key={index} className="carousel_img" src={`${carousel_base_url}-${pic}`} alt="placeholder" />
+                                    )
+                                }
+                            </Carousel>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     );

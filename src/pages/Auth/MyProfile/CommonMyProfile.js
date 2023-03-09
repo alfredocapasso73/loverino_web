@@ -16,6 +16,7 @@ const CommonMyProfile = (props) => {
     const { t } = useTranslation();
     const globalContext = useContext(AppContext);
     const navigate = useNavigate();
+    const [formSaveSuccess, setFormSaveSuccess] = useState(false);
 
     const [currentStep, setCurrentStep] = useState('');
 
@@ -38,6 +39,8 @@ const CommonMyProfile = (props) => {
     const yearRef = useRef(null);
     const [errorYear, setErrorYear] = useState(false);
     form.push({el_ref: yearRef, el_error: setErrorYear, is_birthday: true, birthday_type: 'year'});
+
+    const dayRef = useRef(null);
 
     const monthRef = useRef(null);
     const [errorMonth, setErrorMonth] = useState(false);
@@ -107,7 +110,11 @@ const CommonMyProfile = (props) => {
                     setApiErrorMessages(errors);
                     return;
                 }
+                setFormSaveSuccess(true);
                 globalContext.loggedInUserDetails.name = nameRef.current.value;
+                setTimeout(function(){
+                    setFormSaveSuccess(false);
+                }, 3000);
             }
             else{
                 const result = await api_step_2(body);
@@ -126,6 +133,7 @@ const CommonMyProfile = (props) => {
     }
 
     const saveChanges = () => {
+        console.log("saveChanges");
         setApiErrorMessages([]);
         let found_invalid_fields = false;
         const birthday = {year: undefined, month: undefined, day: undefined};
@@ -179,6 +187,7 @@ const CommonMyProfile = (props) => {
         if(myDescriptionRef?.current?.value){
             form_post_fields.description = myDescriptionRef.current.value;
         }
+        console.log("setTimeout");
         setTimeout(performPost, 1000, form_post_fields);
     }
 
@@ -252,10 +261,14 @@ const CommonMyProfile = (props) => {
                             const year = date.getFullYear();
                             const full_month = date.getMonth();
                             const month = (full_month+1) < 10 ? `0${full_month+1}` : full_month+1;
-                            const day = date.getDate();
+                            const tmp_day = date.getDate();
+                            const day = tmp_day < 10 ? `0${tmp_day}` : tmp_day;
+                            console.log('day:',day);
                             await monthChanged(month);
                             yearRef.current.value = year;
                             monthRef.current.value = month;
+                            dayRef.current.value = day < 10 ? `0${day}` : day;
+                            console.log('dayRef.current.value:',dayRef.current.value)
                             setDay(day);
                             setMyCity(user.city);
                             distanceRef.current.value = user.search_distance;
@@ -389,7 +402,7 @@ const CommonMyProfile = (props) => {
                             <label className="control-label">
                                 {t('MY_BIRTHDAY_DAY')}
                             </label>
-                            <select value={day} className="form-select" onChange={e => setDay(e.target.value)}>
+                            <select value={day} ref={dayRef} className="form-select" onChange={e => setDay(e.target.value)}>
                                 <option value="">{t('SELECT_DAY')}</option>
                                 {
                                     days.map((opt, index) =>
@@ -437,6 +450,13 @@ const CommonMyProfile = (props) => {
                                 }
                             </div>
                         }
+                        {
+                            formSaveSuccess &&
+                            <div className="alert alert-success text-center">
+                                {t('YOUR_PROFILE_HAS_BEEN_UPDATED')}
+                            </div>
+                        }
+
                         <button disabled={submitting} onClick={saveChanges} className="btn btn-primary btn-lg full-width">
                             {t('SAVE_BUTTON')}
                         </button>

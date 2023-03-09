@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import FormInput from "../../../components/UI/FormInput";
 import AlertError from "../../../components/UI/AlertError";
 import FormTitle from "../../../components/UI/FormTitle";
@@ -100,6 +100,9 @@ const Signup = () => {
                                 linkText="HERE"
                                 afterText="TO_RESTORE_PASSWORD"
                             />
+                            <p className="text-center" style={{marginTop: '30px'}}>
+                                {t('PROBLEMS')} <a target="_blank" href="/get-in-touch">{t('GET_IN_TOUCH')}</a>
+                            </p>
                         </form>
                     </div>
                 </div>

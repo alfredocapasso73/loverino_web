@@ -8,6 +8,7 @@ import Signup from "./pages/NonAuth/Signup/Signup";
 import Login from "./pages/NonAuth/Login/Login";
 import NotFound from "./pages/NonAuth/NotFound/NotFound";
 import Error from "./pages/NonAuth/Error/Error";
+import GetInTouch from "./pages/ForAll/GetInTouch/GetInTouch";
 import Activate from "./pages/NonAuth/Activate/Activate";
 import TermsAndCondition from "./pages/NonAuth/TermsAndCondition/TermsAndCondition";
 import About from "./pages/NonAuth/About/About";
@@ -35,6 +36,8 @@ import ChangePassword from './pages/Auth/MyProfile/ChangePassword';
 import ChangeEmail from './pages/Auth/MyProfile/ChangeEmail';
 import Notifications from './pages/Auth/MyProfile/Notifications';
 import MyAccount from './pages/Auth/MyProfile/MyAccount';
+import Test from './pages/Auth/Test/Test';
+import Test2 from './pages/Auth/Test/Test2';
 
 import {useTranslation} from "react-i18next";
 
@@ -104,6 +107,7 @@ const App = () => {
                             <Route path="/terms" element={<TermsAndCondition />}/>
                             <Route path="/about" element={<About />}/>
                             <Route path="/lang/:name" element={<ChangeLanguage />}/>
+                            <Route path="/get-in-touch" element={<GetInTouch />}/>
 
                         </Route>
                         <Route element={<AuthLayout />}>
@@ -125,6 +129,8 @@ const App = () => {
                             <Route path={`${t('URL_FAVORITES')}`} element={<Favorites />} />
                             <Route path={`${t('URL_WINNERS')}`} element={<Winners />} />
                             <Route path={`${t('URL_REFUSED')}`} element={<Refused />} />
+                            <Route path="carousel" element={<Test />} />
+                            <Route path="test" element={<Test2 />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

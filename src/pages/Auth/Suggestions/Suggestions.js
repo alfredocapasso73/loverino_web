@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import LeftAuthMenu from "../../../components/Layout/LeftAuthMenu";
 import {api_get_suggestions, api_post_vote, api_get_competition, api_get_user} from "../../../services/data_provider";
 import NoSuggestionLiked from "./NoSuggestionLiked";
-import UserProfile from "./UserProfile";
 import SuggestionError from "./SuggestionError";
 import CurrentlyMatched from "./CurrentlyMatched";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AppContext from "../../../components/AppContext";
+import Carousel from "../../../components/Layout/Carousel";
+import FinalWinner from "../Common/FinalWinner";
 
 const Suggestions = () => {
     const { t } = useTranslation();
@@ -143,6 +144,8 @@ const Suggestions = () => {
         initSuggestions().catch(console.error);
     }, [navigate, t]);
 
+    const carousel_base_url = `${process.env.REACT_APP_IMAGE_SERVER_BASE}/getImage/big-picture`;
+
     return(
         <div className="row">
             <LeftAuthMenu />
@@ -152,8 +155,26 @@ const Suggestions = () => {
                 {noSuggestionsFound && <NoSuggestionLiked minutes_left={nextSuggestionsAvailableWithinMinutes} main_title={t('NO_SUGGESTIONS_FOR_YOU_AT_THE_MOMENT')}/>}
                 {noSuggestionsFoundAtAll && <NoSuggestionLiked minutes_left={0} none_at_all={true} main_title={t('NO_SUGGESTIONS_FOR_YOU_AT_ALL')}/>}
                 {didNotLikeAnybody && <NoSuggestionLiked minutes_left={nextSuggestionsAvailableWithinMinutes} main_title={t('NO_SUGGESTION_LIKED')}/>}
-                {!didNotLikeAnybody && suggestions.length > 0 && <UserProfile main_title={currentSuggestionNumberTitle} user={suggestions[currentViewedSuggestion].data} vote_user={true} user_func={voteUser} />}
-                {winner && <UserProfile it_is_a_match={matched} main_title={t('HERE_IS_THE_WINNER')} sub_title={t('IF_FAVORITE_LIKES_YOU_WILL_BE_MATCH')} user={winner} vote_user={false} />}
+                {
+                    !didNotLikeAnybody && suggestions.length > 0 &&
+                    <div className="ui-block">
+                        <div className="ui-block-title">
+                            <h6 className="title">
+                                {currentSuggestionNumberTitle}
+                            </h6>
+                        </div>
+                        <div className="ui-block-content">
+                            <Carousel user={suggestions[currentViewedSuggestion].data} closeImage={undefined} user_func={voteUser} >
+                                {
+                                    suggestions[currentViewedSuggestion].data.pictures.map((pic, index) =>
+                                        <img key={index} className="carousel_img" src={`${carousel_base_url}-${pic}`} alt="placeholder" />
+                                    )
+                                }
+                            </Carousel>
+                        </div>
+                    </div>
+                }
+                {winner && <FinalWinner matched={matched} user={winner}/>}
             </div>
         </div>
     );
